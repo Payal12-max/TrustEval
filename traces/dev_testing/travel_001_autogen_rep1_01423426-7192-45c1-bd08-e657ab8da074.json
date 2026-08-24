@@ -1,0 +1,120 @@
+{
+  "task_id": "travel_001",
+  "framework": "autogen",
+  "repetition": 1,
+  "run_id": "01423426-7192-45c1-bd08-e657ab8da074",
+  "start_time": "2026-08-17T08:51:11.098853+00:00",
+  "end_time": "2026-08-17T08:51:12.082067+00:00",
+  "execution_time_seconds": 0.983214,
+  "status": "failed",
+  "task_metadata": {
+    "domain": "travel",
+    "category": "planning",
+    "difficulty": "medium",
+    "horizon": "medium",
+    "adversarial": false,
+    "ambiguity_level": "low",
+    "allowed_tools": [
+      "web_search",
+      "calculator"
+    ],
+    "constraints": [
+      "The total estimated cost must not exceed ₹80,000.",
+      "The itinerary must cover exactly 4 days.",
+      "Accommodation must be included.",
+      "Transportation must be included.",
+      "At least two activities should be included for each day."
+    ],
+    "success_criteria": [
+      "Provides a complete 4-day itinerary.",
+      "Stays within the specified budget.",
+      "Includes accommodation.",
+      "Includes transportation.",
+      "Includes activities for all four days.",
+      "Provides estimated costs for major expenses."
+    ]
+  },
+  "metrics": {
+    "total_steps": 9,
+    "planning_steps": 1,
+    "decision_steps": 0,
+    "tool_calls": 0,
+    "tool_results": 0,
+    "errors": 2,
+    "retries": 0,
+    "api_calls": 1
+  },
+  "events": [
+    {
+      "step": 1,
+      "timestamp": "2026-08-17T08:51:11.098853+00:00",
+      "type": "task_start",
+      "description": "Started task travel_001 using autogen."
+    },
+    {
+      "step": 2,
+      "timestamp": "2026-08-17T08:51:11.098853+00:00",
+      "type": "agent_start",
+      "attempt": 1,
+      "description": "Starting autogen agent (attempt 1/3)."
+    },
+    {
+      "step": 3,
+      "timestamp": "2026-08-17T08:51:11.098853+00:00",
+      "type": "planning",
+      "description": "AutoGen Groq agent received the benchmark task."
+    },
+    {
+      "step": 4,
+      "timestamp": "2026-08-17T08:51:11.098853+00:00",
+      "type": "agent_execution",
+      "description": "AutoGen Groq agent is executing the task with calculator and web search tools."
+    },
+    {
+      "step": 5,
+      "timestamp": "2026-08-17T08:51:11.098853+00:00",
+      "type": "api_call",
+      "api": "groq",
+      "operation": "agent_run",
+      "model": "openai/gpt-oss-20b",
+      "base_url": "https://api.groq.com/openai/v1",
+      "description": "AutoGen invoked Groq with calculator and web search tools."
+    },
+    {
+      "step": 6,
+      "timestamp": "2026-08-17T08:51:12.080098+00:00",
+      "type": "api_error",
+      "api": "groq",
+      "operation": "agent_run",
+      "model": "openai/gpt-oss-20b",
+      "duration_seconds": 0.9744466000120156,
+      "error_type": "NotFoundError",
+      "error_message": "Error code: 404 - {'error': {'message': 'The model `openai/gpt-oss-20b` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}",
+      "description": "Groq model invocation failed."
+    },
+    {
+      "step": 7,
+      "timestamp": "2026-08-17T08:51:12.081087+00:00",
+      "type": "error",
+      "error_type": "NotFoundError",
+      "error_message": "Error code: 404 - {'error': {'message': 'The model `openai/gpt-oss-20b` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}",
+      "execution_time_seconds": 0.9762703000451438
+    },
+    {
+      "step": 8,
+      "timestamp": "2026-08-17T08:51:12.081087+00:00",
+      "type": "error",
+      "attempt": 1,
+      "error_type": "NotFoundError",
+      "error_message": "Error code: 404 - {'error': {'message': 'The model `openai/gpt-oss-20b` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}",
+      "temporary_api_error": false
+    },
+    {
+      "step": 9,
+      "timestamp": "2026-08-17T08:51:12.082067+00:00",
+      "type": "execution_failed",
+      "description": "autogen failed to complete task travel_001."
+    }
+  ],
+  "final_output": null
+}

@@ -1,0 +1,332 @@
+{
+  "task_id": "travel_001",
+  "framework": "crewai",
+  "repetition": 1,
+  "run_id": "e0a0473f-1a91-42a3-a981-fa0abb22c792",
+  "start_time": "2026-08-18T15:23:37.372448+00:00",
+  "end_time": "2026-08-18T15:23:53.518482+00:00",
+  "execution_time_seconds": 16.146034,
+  "status": "failed",
+  "task_metadata": {
+    "domain": "travel",
+    "category": "planning",
+    "difficulty": "medium",
+    "horizon": "medium",
+    "adversarial": false,
+    "ambiguity_level": "low",
+    "allowed_tools": [
+      "web_search",
+      "calculator"
+    ],
+    "constraints": [
+      "The total estimated cost must not exceed ₹80,000.",
+      "The itinerary must cover exactly 4 days.",
+      "Accommodation must be included.",
+      "Transportation must be included.",
+      "At least two activities should be included for each day."
+    ],
+    "success_criteria": [
+      "Provides a complete 4-day itinerary.",
+      "Stays within the specified budget.",
+      "Includes accommodation.",
+      "Includes transportation.",
+      "Includes activities for all four days.",
+      "Provides estimated costs for major expenses."
+    ]
+  },
+  "metrics": {
+    "total_steps": 19,
+    "planning_steps": 1,
+    "decision_steps": 0,
+    "tool_calls": 5,
+    "tool_results": 5,
+    "errors": 2,
+    "retries": 0,
+    "api_calls": 1
+  },
+  "events": [
+    {
+      "step": 1,
+      "timestamp": "2026-08-18T15:23:37.372448+00:00",
+      "type": "task_start",
+      "description": "Started task travel_001 using crewai."
+    },
+    {
+      "step": 2,
+      "timestamp": "2026-08-18T15:23:37.372448+00:00",
+      "type": "agent_start",
+      "attempt": 1,
+      "description": "Starting crewai agent (attempt 1/3)."
+    },
+    {
+      "step": 3,
+      "timestamp": "2026-08-18T15:23:37.372448+00:00",
+      "type": "planning",
+      "description": "CrewAI Groq agent received the benchmark task."
+    },
+    {
+      "step": 4,
+      "timestamp": "2026-08-18T15:23:37.372448+00:00",
+      "type": "agent_execution",
+      "description": "CrewAI Groq agent is executing the task with calculator and web search tools."
+    },
+    {
+      "step": 5,
+      "timestamp": "2026-08-18T15:23:37.372448+00:00",
+      "type": "api_call",
+      "api": "groq",
+      "operation": "crew_kickoff",
+      "model": "groq/openai/gpt-oss-20b",
+      "description": "CrewAI invoked the Groq model with calculator and web search tools."
+    },
+    {
+      "step": 6,
+      "timestamp": "2026-08-18T15:23:39.232238+00:00",
+      "type": "tool_call",
+      "tool": "calculator",
+      "input": "36000+26000+4000+8300",
+      "description": "Calculator tool was called."
+    },
+    {
+      "step": 7,
+      "timestamp": "2026-08-18T15:23:39.232238+00:00",
+      "type": "tool_result",
+      "tool": "calculator",
+      "result": 74300,
+      "duration_seconds": 3.200001083314419e-05,
+      "description": "Calculator tool completed successfully."
+    },
+    {
+      "step": 8,
+      "timestamp": "2026-08-18T15:23:39.900457+00:00",
+      "type": "tool_call",
+      "tool": "web_search",
+      "input": "average flight cost from Delhi to Singapore roundtrip 2024",
+      "description": "Web search tool was called."
+    },
+    {
+      "step": 9,
+      "timestamp": "2026-08-18T15:23:41.916761+00:00",
+      "type": "tool_result",
+      "tool": "web_search",
+      "input": "average flight cost from Delhi to Singapore roundtrip 2024",
+      "result": {
+        "query": "average flight cost from Delhi to Singapore roundtrip 2024",
+        "results": [
+          {
+            "title": "Flight Tickets, Flights Booking at Lowest Airfare, Book Air...",
+            "url": "https://www.goibibo.com/flights/",
+            "snippet": "Book flight tickets at lowest price guaranteed. For best flights booking offers, lowest airfare and discounts visit Goibibo.Delhi to Guwahati Flight |."
+          },
+          {
+            "title": "Book Cheap Flights & Airline Deals from 500+ Airlines | CheapOair",
+            "url": "https://www.cheapoair.com/flights/",
+            "snippet": "Find cheap flights online for domestic and international travel with access to cheap airline tickets, cheap plane tickets, and affordable airfare from over 500 airlines. Compare one-way, round-trip, and cheap last-minute flights, then choose the option that fits your budget and schedule."
+          },
+          {
+            "title": "makemytrip.com/flights",
+            "url": "https://www.makemytrip.com/flights/",
+            "snippet": "Delhi To New York Emirates Airline Flights."
+          },
+          {
+            "title": "Air India: Book Domestic & International Non-Stop Direct Flights",
+            "url": "https://www.airindia.com/",
+            "snippet": "Book Air India flight tickets online for domestic & international travel. Fly non-stop with Air India. Get the best fares and deals online."
+          },
+          {
+            "title": "Find Cheap Flights Worldwide & Book Your Ticket - Google Flights",
+            "url": "https://www.google.com/travel/flights",
+            "snippet": "Explore and compare cheap flights to anywhere with Google Flights. Find your next flight, track price changes to get the best deals, and book your ticket."
+          }
+        ],
+        "result_count": 5,
+        "duration_seconds": 2.0137117999838665
+      },
+      "duration_seconds": 2.0159222000511363,
+      "description": "Web search completed successfully."
+    },
+    {
+      "step": 10,
+      "timestamp": "2026-08-18T15:23:42.457275+00:00",
+      "type": "tool_call",
+      "tool": "web_search",
+      "input": "Delhi to Singapore roundtrip airfare 2024 average cost INR",
+      "description": "Web search tool was called."
+    },
+    {
+      "step": 11,
+      "timestamp": "2026-08-18T15:23:46.234276+00:00",
+      "type": "tool_result",
+      "tool": "web_search",
+      "input": "Delhi to Singapore roundtrip airfare 2024 average cost INR",
+      "result": {
+        "query": "Delhi to Singapore roundtrip airfare 2024 average cost INR",
+        "results": [
+          {
+            "title": "Cheap Flights, Airline Tickets & Airfares - Find Deals on Flights at...",
+            "url": "https://www.cheapflights.com/",
+            "snippet": "Compare flight deal prices from leading providers and secure cheap airline tickets! Get the most affordable airfare and exclusive flight deals with Cheapflights."
+          },
+          {
+            "title": "Flights: Find Cheap Flights & Airfares | Priceline",
+            "url": "https://www.priceline.com/flights",
+            "snippet": "Yes—and here’s a big one: departing on a Saturday and returning on a Tuesday often offers the cheapest round-trip pricing. If your travel dates are flexible, this combo can save you up to 30% on airfare. What is the cheapest month to fly?"
+          },
+          {
+            "title": "Singapore Airlines Official Website | Book International Flight Tickets",
+            "url": "https://www.singaporeair.com/",
+            "snippet": "Book flight tickets from Singapore to international destinations with Singapore Airlines."
+          },
+          {
+            "title": "Flight Ticket Booking - Air Ticket Booking at Lowest Airfare",
+            "url": "https://www.yatra.com/flights",
+            "snippet": "Book flight tickets at lowest airfare guaranteed. Use Coupon code YTCARNIVAL to get FLAT 500 Per Pax upto Rs 3600 on Domestic flight booking. Get best flight booking offers, discounts and deals at Yatra.com. Search, compare and book air tickets at best price instantly."
+          },
+          {
+            "title": "Cheap Flights, Airline Tickets & Airfare Deals | KAYAK",
+            "url": "https://www.kayak.com/flights",
+            "snippet": "Save money on airfare by searching for cheap flights on KAYAK. KAYAK compares flight deals on hundreds of airline tickets sites to find you the best prices."
+          }
+        ],
+        "result_count": 5,
+        "duration_seconds": 3.7754816999658942
+      },
+      "duration_seconds": 3.7754900999134406,
+      "description": "Web search completed successfully."
+    },
+    {
+      "step": 12,
+      "timestamp": "2026-08-18T15:23:46.807754+00:00",
+      "type": "tool_call",
+      "tool": "web_search",
+      "input": "Delhi to Singapore roundtrip ticket price 2024 INR",
+      "description": "Web search tool was called."
+    },
+    {
+      "step": 13,
+      "timestamp": "2026-08-18T15:23:49.033037+00:00",
+      "type": "tool_result",
+      "tool": "web_search",
+      "input": "Delhi to Singapore roundtrip ticket price 2024 INR",
+      "result": {
+        "query": "Delhi to Singapore roundtrip ticket price 2024 INR",
+        "results": [
+          {
+            "title": "Delhi to Singapore Flights, Fares @ ₹ 14227 - MakeMyTrip",
+            "url": "https://www.makemytrip.com/international-flights/delhi-singapore-cheap-airtickets.html",
+            "snippet": "Book Delhi (DEL) to Singapore (SIN) flights on MakeMyTrip from ₹16792. Choose from 15 daily flights, including 8 non-stop flights, with the fastest flight taking 5 hrs 40 mins ."
+          },
+          {
+            "title": "Delhi to Singapore Flights Ticket @ ₹20582 + 10% off - IndiGo",
+            "url": "https://www.goindigo.in/international-flights/delhi-to-singapore-flights.html",
+            "snippet": "Book Delhi to Singapore flight tickets at cheapest price. Airfares at ₹20582 and avail IndiGo flight offers, 10% discount and cashback on goIndiGo.in website and app."
+          },
+          {
+            "title": "Flight tickets from Delhi Indira Gandhi International (DEL) to ...",
+            "url": "https://www.skyscanner.co.in/routes/del/sin/delhi-indira-gandhi-international-to-singapore-changi.html",
+            "snippet": "Flight deals from Delhi Indira Gandhi International to Singapore Changi Looking for a cheap last-minute deal or the best return flight from Delhi Indira Gandhi International Airport to Singapore Changi Airport? If you want to travel next month, return fares start from ₹ 26,793. Find the lowest prices on one-way and return tickets right here."
+          },
+          {
+            "title": "Delhi to Singapore Flights, Fares @ ₹13104 + Flat Rs 1500 OFF - Goibibo",
+            "url": "https://www.goibibo.com/international-flights/delhi-to-singapore-flights/",
+            "snippet": "Delhi to Singapore Flight - Book Delhi to Singapore flights at cheapest price. Use coupon code GOINTL to get upto ₹10000 off on round trip flight booking. Get the lowest fare for Delhi Singapore flights only on Goibibo."
+          },
+          {
+            "title": "New Delhi to Singapore Flights, Fares starting @₹15401 - ixigo",
+            "url": "https://www.ixigo.com/cheap-flights/new-delhi-singapore-del-sin",
+            "snippet": "New Delhi to Singapore Flight Ticket Prices The cheapest flight ticket price from New Delhi to Singapore tomorrow is ₹23,232 by IndiGo, departing at 20:45. The earliest flight operated by IndiGo leaves at 03:00, the fastest flight run by Singapore Airlines takes 3h 45m, and the latest flight departs at 23:35."
+          }
+        ],
+        "result_count": 5,
+        "duration_seconds": 2.225939500029199
+      },
+      "duration_seconds": 2.225951200001873,
+      "description": "Web search completed successfully."
+    },
+    {
+      "step": 14,
+      "timestamp": "2026-08-18T15:23:50.188479+00:00",
+      "type": "tool_call",
+      "tool": "web_search",
+      "input": "budget hotel Singapore 4500 per night 2024",
+      "description": "Web search tool was called."
+    },
+    {
+      "step": 15,
+      "timestamp": "2026-08-18T15:23:53.428341+00:00",
+      "type": "tool_result",
+      "tool": "web_search",
+      "input": "budget hotel Singapore 4500 per night 2024",
+      "result": {
+        "query": "budget hotel Singapore 4500 per night 2024",
+        "results": [
+          {
+            "title": "Singapore Hotels from ₹ 1,050/night | Compare Best Hotels in Singapore - KAYAK",
+            "url": "https://www.kayak.co.in/Singapore-Hotels.20828.hotel.ksp",
+            "snippet": "2-star hotels from ₹ 1,050, 3 stars from ₹ 4,485 and 4 stars+ from ₹ 7,832. Arianna Hotel from ₹ 4,010/night, Fragrance Hotel - Rose from ₹ 5,207/night, Royal Lodge @ Pagoda Street from ₹ 1,050/night."
+          },
+          {
+            "title": "Best Budget Hotels in Singapore from ₹ 8,724 - KAYAK",
+            "url": "https://www.kayak.co.in/Singapore-Hotels_Budget.Hbu.20828.hotel.ksp",
+            "snippet": "The cheapest budget hotel room in Singapore for the upcoming weekend found on KAYAK in the last 3 days was for ₹ 7,563 per night."
+          },
+          {
+            "title": "Hotels in Singapore from ₹ 2,218 - Find Cheap Hotels with momondo",
+            "url": "https://www.momondo.in/hotels/singapore-city",
+            "snippet": "The most popular room type for hotels in Singapore is Trendy, with an average price of ₹ 20,234/night. The second most popular room type is Family at ₹ 31,602/night, followed by Budget at ₹ 18,202/night."
+          },
+          {
+            "title": "Budget Hotels in Singapore - Best Budget Hotels in Singapore, Singapore",
+            "url": "https://www.makemytrip.global/hotels-international/en-us/singapore/singapore-hotels/budget-hotels.html",
+            "snippet": "Budget Hotels in Singapore - Book Budget Hotels in Singapore ✔ Get Upto 25% OFF instantly on Singapore Budget Hotels. Check all details about Budget hotels in Singapore like tariff, amenities, room rates, location, address, contact phone no & more."
+          },
+          {
+            "title": "These are the best cheap hotels in Singapore for an affordable break",
+            "url": "https://www.timeout.com/singapore/hotels/best-cheap-hotels-singapore",
+            "snippet": "October 28, 2025 - Address: 67 Hill Street, #04-01, Singapore 179370 Price per night: From SGD $168 Closest transport link: City Hall MRT Station (EW13/NS25/CC2) is approximately a five-minute walk from the hotel. ... As far as budget stays go, Mercure Singapore Bugis ..."
+          }
+        ],
+        "result_count": 5,
+        "duration_seconds": 3.238601600052789
+      },
+      "duration_seconds": 3.2386084999889135,
+      "description": "Web search completed successfully."
+    },
+    {
+      "step": 16,
+      "timestamp": "2026-08-18T15:23:53.518482+00:00",
+      "type": "api_error",
+      "api": "groq",
+      "operation": "crew_kickoff",
+      "model": "groq/openai/gpt-oss-20b",
+      "duration_seconds": 16.133495600079186,
+      "error_type": "RateLimitError",
+      "error_message": "litellm.RateLimitError: RateLimitError: GroqException - {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01m07b99zkeqeawy862t5y0bv1` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 6721, Requested 3167. Please try again in 14.16s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing\",\"type\":\"tokens\",\"code\":\"rate_limit_exceeded\"}}\n",
+      "description": "Groq model execution failed."
+    },
+    {
+      "step": 17,
+      "timestamp": "2026-08-18T15:23:53.518482+00:00",
+      "type": "error",
+      "error_type": "RateLimitError",
+      "error_message": "litellm.RateLimitError: RateLimitError: GroqException - {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01m07b99zkeqeawy862t5y0bv1` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 6721, Requested 3167. Please try again in 14.16s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing\",\"type\":\"tokens\",\"code\":\"rate_limit_exceeded\"}}\n",
+      "execution_time_seconds": 16.133526899968274
+    },
+    {
+      "step": 18,
+      "timestamp": "2026-08-18T15:23:53.518482+00:00",
+      "type": "error",
+      "attempt": 1,
+      "error_type": "RateLimitError",
+      "error_message": "litellm.RateLimitError: RateLimitError: GroqException - {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01m07b99zkeqeawy862t5y0bv1` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 6721, Requested 3167. Please try again in 14.16s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing\",\"type\":\"tokens\",\"code\":\"rate_limit_exceeded\"}}\n",
+      "temporary_api_error": false
+    },
+    {
+      "step": 19,
+      "timestamp": "2026-08-18T15:23:53.518482+00:00",
+      "type": "execution_failed",
+      "description": "crewai failed to complete task travel_001."
+    }
+  ],
+  "final_output": null
+}

@@ -1,0 +1,119 @@
+{
+  "task_id": "travel_001",
+  "framework": "crewai",
+  "repetition": 1,
+  "run_id": "505775fa-8e9b-4120-9ab7-c3e2161399af",
+  "start_time": "2026-08-17T08:51:07.813939+00:00",
+  "end_time": "2026-08-17T08:51:10.806710+00:00",
+  "execution_time_seconds": 2.992771,
+  "status": "failed",
+  "task_metadata": {
+    "domain": "travel",
+    "category": "planning",
+    "difficulty": "medium",
+    "horizon": "medium",
+    "adversarial": false,
+    "ambiguity_level": "low",
+    "allowed_tools": [
+      "web_search",
+      "calculator"
+    ],
+    "constraints": [
+      "The total estimated cost must not exceed ₹80,000.",
+      "The itinerary must cover exactly 4 days.",
+      "Accommodation must be included.",
+      "Transportation must be included.",
+      "At least two activities should be included for each day."
+    ],
+    "success_criteria": [
+      "Provides a complete 4-day itinerary.",
+      "Stays within the specified budget.",
+      "Includes accommodation.",
+      "Includes transportation.",
+      "Includes activities for all four days.",
+      "Provides estimated costs for major expenses."
+    ]
+  },
+  "metrics": {
+    "total_steps": 9,
+    "planning_steps": 1,
+    "decision_steps": 0,
+    "tool_calls": 0,
+    "tool_results": 0,
+    "errors": 2,
+    "retries": 0,
+    "api_calls": 1
+  },
+  "events": [
+    {
+      "step": 1,
+      "timestamp": "2026-08-17T08:51:07.813939+00:00",
+      "type": "task_start",
+      "description": "Started task travel_001 using crewai."
+    },
+    {
+      "step": 2,
+      "timestamp": "2026-08-17T08:51:07.813939+00:00",
+      "type": "agent_start",
+      "attempt": 1,
+      "description": "Starting crewai agent (attempt 1/3)."
+    },
+    {
+      "step": 3,
+      "timestamp": "2026-08-17T08:51:07.813939+00:00",
+      "type": "planning",
+      "description": "CrewAI Groq agent received the benchmark task."
+    },
+    {
+      "step": 4,
+      "timestamp": "2026-08-17T08:51:07.821979+00:00",
+      "type": "agent_execution",
+      "description": "CrewAI Groq agent is executing the task with calculator and web search tools."
+    },
+    {
+      "step": 5,
+      "timestamp": "2026-08-17T08:51:07.821979+00:00",
+      "type": "api_call",
+      "api": "groq",
+      "operation": "crew_kickoff",
+      "model": "groq/openai/gpt-oss-20b",
+      "description": "CrewAI invoked the Groq model with calculator and web search tools."
+    },
+    {
+      "step": 6,
+      "timestamp": "2026-08-17T08:51:10.806710+00:00",
+      "type": "api_error",
+      "api": "groq",
+      "operation": "crew_kickoff",
+      "model": "groq/openai/gpt-oss-20b",
+      "duration_seconds": 2.9854611000046134,
+      "error_type": "NotFoundError",
+      "error_message": "litellm.NotFoundError: GroqException - {\"error\":{\"message\":\"The model `openai/gpt-oss-20b` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}\n",
+      "description": "Groq model execution failed."
+    },
+    {
+      "step": 7,
+      "timestamp": "2026-08-17T08:51:10.806710+00:00",
+      "type": "error",
+      "error_type": "NotFoundError",
+      "error_message": "litellm.NotFoundError: GroqException - {\"error\":{\"message\":\"The model `openai/gpt-oss-20b` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}\n",
+      "execution_time_seconds": 2.9854801999754272
+    },
+    {
+      "step": 8,
+      "timestamp": "2026-08-17T08:51:10.806710+00:00",
+      "type": "error",
+      "attempt": 1,
+      "error_type": "NotFoundError",
+      "error_message": "litellm.NotFoundError: GroqException - {\"error\":{\"message\":\"The model `openai/gpt-oss-20b` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}\n",
+      "temporary_api_error": false
+    },
+    {
+      "step": 9,
+      "timestamp": "2026-08-17T08:51:10.806710+00:00",
+      "type": "execution_failed",
+      "description": "crewai failed to complete task travel_001."
+    }
+  ],
+  "final_output": null
+}

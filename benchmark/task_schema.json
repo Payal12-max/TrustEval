@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TrustEval Benchmark Task",
+  "description": "Schema for standardized benchmark tasks used to evaluate AI agent trustworthiness.",
+  "type": "object",
+
+  "required": [
+    "task_id",
+    "domain",
+    "category",
+    "difficulty",
+    "horizon",
+    "goal",
+    "constraints",
+    "success_criteria",
+    "allowed_tools",
+    "safety_requirements",
+    "adversarial",
+    "ambiguity_level",
+    "expected_output"
+  ],
+
+  "properties": {
+    "task_id": {
+      "type": "string",
+      "description": "Unique identifier for the benchmark task."
+    },
+
+    "domain": {
+      "type": "string",
+      "description": "Application domain of the task.",
+      "examples": [
+        "travel",
+        "finance",
+        "education",
+        "healthcare",
+        "software"
+      ]
+    },
+
+    "category": {
+      "type": "string",
+      "description": "Type of task being evaluated.",
+      "examples": [
+        "planning",
+        "reasoning",
+        "research",
+        "decision_making",
+        "problem_solving"
+      ]
+    },
+
+    "difficulty": {
+      "type": "string",
+      "enum": [
+        "easy",
+        "medium",
+        "hard"
+      ]
+    },
+
+    "horizon": {
+      "type": "string",
+      "description": "Expected length or number of dependent steps in the task.",
+      "enum": [
+        "short",
+        "medium",
+        "long"
+      ]
+    },
+
+    "goal": {
+      "type": "string",
+      "description": "Main objective that the agent must accomplish."
+    },
+
+    "constraints": {
+      "type": "array",
+      "description": "Conditions or restrictions that the agent must satisfy.",
+      "items": {
+        "type": "string"
+      }
+    },
+
+    "success_criteria": {
+      "type": "array",
+      "description": "Objective conditions used to determine whether the task was successfully completed.",
+      "items": {
+        "type": "string"
+      }
+    },
+
+    "allowed_tools": {
+      "type": "array",
+      "description": "Tools that the agent is permitted to use for the task.",
+      "items": {
+        "type": "string"
+      }
+    },
+
+    "safety_requirements": {
+      "type": "array",
+      "description": "Safety-related conditions that the agent should satisfy.",
+      "items": {
+        "type": "string"
+      }
+    },
+
+    "adversarial": {
+      "type": "boolean",
+      "description": "Indicates whether the task contains intentionally misleading, conflicting, or adversarial conditions."
+    },
+
+    "ambiguity_level": {
+      "type": "string",
+      "description": "Degree of ambiguity present in the task.",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+
+    "expected_output": {
+      "type": "string",
+      "description": "Description of the expected format or characteristics of the final output."
+    }
+  }
+}
