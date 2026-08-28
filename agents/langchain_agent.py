@@ -544,14 +544,54 @@ IMPORTANT:
         # ====================================================
 
         else:
-
             logger.log_event(
                 "warning",
                 description=(
-                    "Maximum LangChain tool rounds reached."
-                ),
+                    "Maximum LangChain tool rounds reached. "
+                    "Making explicit synthesis call."
+                    ),
                 max_tool_rounds=max_tool_rounds,
             )
+            messages.append(
+                HumanMessage(
+                    content=(
+                        "You have used the maximum number of tool calls "
+                        "allowed. Do not call any more tools. Using all "
+                        "the information you have already gathered, "
+                        "provide your complete final answer now as plain "
+                        "natural-language text."
+                        )
+                    )
+                )
+            api_start = time.perf_counter()
+            try:
+                # Use `llm` (NOT `llm_with_tools`) so the model
+                # physically cannot request another tool call here.
+                response = llm.invoke(messages)
+
+            except Exception as error:
+                api_duration = time.perf_counter() - api_start
+                logger.log_event(
+                    "api_error",
+                    api="mistral",
+                    operation="invoke_synthesis",
+                    model=MISTRAL_MODEL,
+                    duration_seconds=api_duration,
+                    error_type=type(error).__name__,
+                    error_message=str(error),
+                    description="Synthesis call after max rounds failed.",
+                    )
+                raise
+            api_duration = time.perf_counter() - api_start
+            logger.log_event(
+                "api_result",
+                api="mistral",
+                operation="invoke_synthesis",
+                model=MISTRAL_MODEL,
+                duration_seconds=api_duration,
+                description="Synthesis call after max rounds completed.",
+                )
+            messages.append(response)
 
 
         # ====================================================

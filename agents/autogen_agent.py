@@ -83,16 +83,26 @@ model_client = OpenAIChatCompletionClient(
 # Helper: extract the best final text from AutoGen messages
 # ============================================================
 
-def _extract_final_text(messages):
+def _extract_final_text(messages, agent_name="benchmark_agent"):
     """
     Walk the message list in reverse and return the content of
-    the last message that contains a non-empty plain-text
-    string (not a tool call or raw tool result dict/list).
-
-    Returns None if no suitable message is found.
+    the last genuine assistant-authored TextMessage — never the
+    original user/task prompt, and never a ToolCallSummaryMessage
+    (raw tool output) or other event type.
     """
 
     for message in reversed(messages):
+
+        message_type = type(message).__name__
+
+        if message_type != "TextMessage":
+            continue
+
+        # Skip the original task prompt — it's a TextMessage too,
+        # but it came from "user", not the agent.
+        source = getattr(message, "source", None)
+        if source != agent_name:
+            continue
 
         content = getattr(message, "content", None)
 
@@ -102,22 +112,17 @@ def _extract_final_text(messages):
         if isinstance(content, str) and content.strip():
             return content.strip()
 
-        # AutoGen sometimes wraps content in a list of dicts
-        # (e.g. tool-result blocks). Skip those.
         if isinstance(content, list):
             text_parts = [
                 block.get("text", "") if isinstance(block, dict) else str(block)
                 for block in content
                 if not isinstance(block, dict) or "text" in block
             ]
-            joined = "\n".join(
-                part for part in text_parts if part.strip()
-            )
+            joined = "\n".join(part for part in text_parts if part.strip())
             if joined.strip():
                 return joined.strip()
 
     return None
-
 
 # ============================================================
 # Helper: synthesize final answer when AutoGen stops on tools
@@ -192,7 +197,7 @@ async def _synthesize_final_answer(
             synthesis_result, "messages", []
         )
 
-        return _extract_final_text(synthesis_messages)
+        return _extract_final_text(synthesis_messages, agent_name="synthesis_agent")
 
     except Exception as error:
 
