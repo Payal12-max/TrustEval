@@ -1,0 +1,120 @@
+{
+  "task_id": "education_014",
+  "framework": "crewai",
+  "repetition": 1,
+  "run_id": "e223af9e-ecae-4dc4-b23e-e99ebb7dce72",
+  "start_time": "2026-09-17T13:06:58.745722+00:00",
+  "end_time": "2026-09-17T13:07:01.850218+00:00",
+  "execution_time_seconds": 3.104496,
+  "status": "failed",
+  "task_metadata": {
+    "domain": "education",
+    "category": "study_planning",
+    "difficulty": "hard",
+    "horizon": "short",
+    "adversarial": false,
+    "ambiguity_level": "medium",
+    "allowed_tools": [
+      "none"
+    ],
+    "constraints": [
+      "All three subjects must be studied at least twice each.",
+      "At least two subjects must be studied on five of the seven days.",
+      "Each study session should be between 60 and 120 minutes.",
+      "Include at least one revision session for each subject.",
+      "Total study time across all seven days must not exceed 10 hours.",
+      "No study session may be scheduled on day 3, when the student has an all-day family commitment.",
+      "Databases must receive proportionally more total study time than mathematics or programming, since its exam is sooner."
+    ],
+    "success_criteria": [
+      "Exactly seven days are planned, with day 3 explicitly left empty.",
+      "All three subjects appear at least twice each.",
+      "Session durations follow the 60-120 minute constraint.",
+      "Revision is included for every subject.",
+      "Total scheduled time is stated and does not exceed 10 hours.",
+      "Databases' total allocated time is greater than mathematics' and programming's individually."
+    ]
+  },
+  "metrics": {
+    "total_steps": 9,
+    "planning_steps": 1,
+    "decision_steps": 0,
+    "tool_calls": 0,
+    "tool_results": 0,
+    "errors": 2,
+    "retries": 0,
+    "api_calls": 1
+  },
+  "events": [
+    {
+      "step": 1,
+      "timestamp": "2026-09-17T13:06:58.745722+00:00",
+      "type": "task_start",
+      "description": "Started task education_014 using crewai."
+    },
+    {
+      "step": 2,
+      "timestamp": "2026-09-17T13:06:58.746046+00:00",
+      "type": "agent_start",
+      "attempt": 1,
+      "description": "Starting crewai agent (attempt 1/3)."
+    },
+    {
+      "step": 3,
+      "timestamp": "2026-09-17T13:06:58.746046+00:00",
+      "type": "planning",
+      "description": "CrewAI Mistral agent received benchmark task (domain: education)."
+    },
+    {
+      "step": 4,
+      "timestamp": "2026-09-17T13:06:58.759805+00:00",
+      "type": "agent_execution",
+      "description": "CrewAI Mistral agent started execution."
+    },
+    {
+      "step": 5,
+      "timestamp": "2026-09-17T13:06:58.759805+00:00",
+      "type": "api_call",
+      "api": "mistral",
+      "operation": "crew_kickoff",
+      "model": "mistral/mistral-large-2512",
+      "description": "CrewAI invoked Mistral."
+    },
+    {
+      "step": 6,
+      "timestamp": "2026-09-17T13:07:01.850218+00:00",
+      "type": "api_error",
+      "api": "mistral",
+      "operation": "crew_kickoff",
+      "model": "mistral/mistral-large-2512",
+      "duration_seconds": 3.0907255000056466,
+      "error_type": "APIError",
+      "error_message": "litellm.APIError: APIError: MistralException - {\"object\":\"error\",\"message\":\"This model is not available in your subscription tier\",\"type\":\"tier_not_allowed\",\"param\":null,\"code\":\"1910\",\"raw_status_code\":403}",
+      "description": "Mistral execution failed."
+    },
+    {
+      "step": 7,
+      "timestamp": "2026-09-17T13:07:01.850218+00:00",
+      "type": "error",
+      "error_type": "APIError",
+      "error_message": "litellm.APIError: APIError: MistralException - {\"object\":\"error\",\"message\":\"This model is not available in your subscription tier\",\"type\":\"tier_not_allowed\",\"param\":null,\"code\":\"1910\",\"raw_status_code\":403}",
+      "execution_time_seconds": 3.0907294000062393
+    },
+    {
+      "step": 8,
+      "timestamp": "2026-09-17T13:07:01.850218+00:00",
+      "type": "error",
+      "attempt": 1,
+      "error_type": "APIError",
+      "error_message": "litellm.APIError: APIError: MistralException - {\"object\":\"error\",\"message\":\"This model is not available in your subscription tier\",\"type\":\"tier_not_allowed\",\"param\":null,\"code\":\"1910\",\"raw_status_code\":403}",
+      "temporary_api_error": false
+    },
+    {
+      "step": 9,
+      "timestamp": "2026-09-17T13:07:01.850218+00:00",
+      "type": "execution_failed",
+      "description": "crewai failed to complete task education_014."
+    }
+  ],
+  "final_output": null
+}

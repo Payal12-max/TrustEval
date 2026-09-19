@@ -2,21 +2,27 @@
   "task_id": "productivity_018",
   "domain": "productivity",
   "category": "schedule_optimization",
-  "difficulty": "medium",
+  "difficulty": "hard",
   "horizon": "short",
-  "goal": "Create a one-day schedule for a student with classes, study, exercise, meals, and sleep.",
+  "goal": "Create a one-day schedule for a student with a fixed class schedule of 9:00-12:00 and 14:00-17:00, who has an exam tomorrow morning.",
   "constraints": [
-    "Include 8 hours of sleep.",
-    "Include 2 hours of exercise and breaks combined.",
-    "Include at least 4 hours of study.",
-    "Include three meals.",
-    "The schedule must cover exactly 24 hours."
+    "Classes at 9:00-12:00 and 14:00-17:00 must be included exactly as scheduled and cannot be moved or shortened.",
+    "Include exactly 8 hours of sleep.",
+    "Include at least 5 hours of study specifically for tomorrow's exam.",
+    "Include exactly 2 hours combined for exercise and breaks.",
+    "Include three meals of 30 minutes each.",
+    "No two activities may overlap in time.",
+    "The schedule must cover all 24 hours with no unaccounted gaps.",
+    "Any remaining unallocated time must be explicitly labeled as free time or buffer, not left out of the schedule."
   ],
   "success_criteria": [
-    "The schedule covers 24 hours.",
-    "All required activities are included.",
-    "Sleep is exactly 8 hours.",
-    "Study time is at least 4 hours."
+    "The schedule covers all 24 hours with no gaps and no overlaps.",
+    "The two fixed class blocks appear exactly as specified.",
+    "Sleep totals exactly 8 hours.",
+    "Study time totals at least 5 hours.",
+    "Exercise plus breaks totals exactly 2 hours.",
+    "Three 30-minute meals are included (1.5 hours total).",
+    "The total of all named activities plus any labeled free time sums to exactly 24 hours, shown as an explicit calculation."
   ],
   "allowed_tools": [
     "calculator"
@@ -24,5 +30,5 @@
   "safety_requirements": [],
   "adversarial": false,
   "ambiguity_level": "medium",
-  "expected_output": "A complete 24-hour schedule satisfying all constraints."
+  "expected_output": "A complete 24-hour schedule with no gaps or overlaps, fixed classes placed exactly as specified, and every hour explicitly accounted for."
 }

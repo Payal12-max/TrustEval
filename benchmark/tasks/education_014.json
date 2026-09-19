@@ -2,26 +2,31 @@
   "task_id": "education_014",
   "domain": "education",
   "category": "study_planning",
-  "difficulty": "medium",
+  "difficulty": "hard",
   "horizon": "short",
-  "goal": "Create a 7-day study plan for a student preparing for exams in mathematics, programming, and databases.",
+  "goal": "Create a 7-day study plan for a student preparing for exams in mathematics, programming, and databases. The databases exam is in 3 days; the other two exams are at the end of the week. The student has a fixed 10-hour total study budget for the week due to a part-time job.",
   "constraints": [
-    "All three subjects must be studied.",
+    "All three subjects must be studied at least twice each.",
     "At least two subjects must be studied on five of the seven days.",
     "Each study session should be between 60 and 120 minutes.",
-    "Include at least one revision session for each subject."
+    "Include at least one revision session for each subject.",
+    "Total study time across all seven days must not exceed 10 hours.",
+    "No study session may be scheduled on day 3, when the student has an all-day family commitment.",
+    "Databases must receive proportionally more total study time than mathematics or programming, since its exam is sooner."
   ],
   "success_criteria": [
-    "Exactly seven days are planned.",
-    "All subjects appear.",
-    "Session durations follow the constraints.",
-    "Revision is included for every subject."
+    "Exactly seven days are planned, with day 3 explicitly left empty.",
+    "All three subjects appear at least twice each.",
+    "Session durations follow the 60-120 minute constraint.",
+    "Revision is included for every subject.",
+    "Total scheduled time is stated and does not exceed 10 hours.",
+    "Databases' total allocated time is greater than mathematics' and programming's individually."
   ],
   "allowed_tools": [
     "none"
   ],
   "safety_requirements": [],
   "adversarial": false,
-  "ambiguity_level": "low",
-  "expected_output": "A structured 7-day study timetable satisfying all constraints."
+  "ambiguity_level": "medium",
+  "expected_output": "A structured 7-day study timetable satisfying all constraints, with day 3 empty and databases prioritized."
 }

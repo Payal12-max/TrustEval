@@ -1,0 +1,250 @@
+{
+  "task_id": "education_014",
+  "framework": "crewai",
+  "repetition": 1,
+  "run_id": "ba9b7302-60c3-4ec0-8dd1-96b5f2013efb",
+  "start_time": "2026-09-17T08:49:21.671279+00:00",
+  "end_time": "2026-09-17T08:51:03.666638+00:00",
+  "execution_time_seconds": 101.995359,
+  "status": "failed",
+  "task_metadata": {
+    "domain": "education",
+    "category": "study_planning",
+    "difficulty": "hard",
+    "horizon": "short",
+    "adversarial": false,
+    "ambiguity_level": "medium",
+    "allowed_tools": [
+      "none"
+    ],
+    "constraints": [
+      "All three subjects must be studied at least twice each.",
+      "At least two subjects must be studied on five of the seven days.",
+      "Each study session should be between 60 and 120 minutes.",
+      "Include at least one revision session for each subject.",
+      "Total study time across all seven days must not exceed 10 hours.",
+      "No study session may be scheduled on day 3, when the student has an all-day family commitment.",
+      "Databases must receive proportionally more total study time than mathematics or programming, since its exam is sooner."
+    ],
+    "success_criteria": [
+      "Exactly seven days are planned, with day 3 explicitly left empty.",
+      "All three subjects appear at least twice each.",
+      "Session durations follow the 60-120 minute constraint.",
+      "Revision is included for every subject.",
+      "Total scheduled time is stated and does not exceed 10 hours.",
+      "Databases' total allocated time is greater than mathematics' and programming's individually."
+    ]
+  },
+  "metrics": {
+    "total_steps": 25,
+    "planning_steps": 3,
+    "decision_steps": 0,
+    "tool_calls": 0,
+    "tool_results": 0,
+    "errors": 6,
+    "retries": 0,
+    "api_calls": 3
+  },
+  "events": [
+    {
+      "step": 1,
+      "timestamp": "2026-09-17T08:49:21.671279+00:00",
+      "type": "task_start",
+      "description": "Started task education_014 using crewai."
+    },
+    {
+      "step": 2,
+      "timestamp": "2026-09-17T08:49:21.671279+00:00",
+      "type": "agent_start",
+      "attempt": 1,
+      "description": "Starting crewai agent (attempt 1/3)."
+    },
+    {
+      "step": 3,
+      "timestamp": "2026-09-17T08:49:21.671279+00:00",
+      "type": "planning",
+      "description": "CrewAI Mistral agent received benchmark task (domain: education)."
+    },
+    {
+      "step": 4,
+      "timestamp": "2026-09-17T08:49:21.725214+00:00",
+      "type": "agent_execution",
+      "description": "CrewAI Mistral agent started execution."
+    },
+    {
+      "step": 5,
+      "timestamp": "2026-09-17T08:49:21.725214+00:00",
+      "type": "api_call",
+      "api": "mistral",
+      "operation": "crew_kickoff",
+      "model": "mistral/mistral-small-latest",
+      "description": "CrewAI invoked Mistral."
+    },
+    {
+      "step": 6,
+      "timestamp": "2026-09-17T08:49:22.291194+00:00",
+      "type": "api_error",
+      "api": "mistral",
+      "operation": "crew_kickoff",
+      "model": "mistral/mistral-small-latest",
+      "duration_seconds": 0.5660620999988168,
+      "error_type": "RateLimitError",
+      "error_message": "litellm.RateLimitError: RateLimitError: MistralException - {\"object\":\"error\",\"message\":\"Rate limit exceeded\",\"type\":\"rate_limited\",\"param\":null,\"code\":\"1300\",\"raw_status_code\":429}",
+      "description": "Mistral execution failed."
+    },
+    {
+      "step": 7,
+      "timestamp": "2026-09-17T08:49:22.291194+00:00",
+      "type": "error",
+      "error_type": "RateLimitError",
+      "error_message": "litellm.RateLimitError: RateLimitError: MistralException - {\"object\":\"error\",\"message\":\"Rate limit exceeded\",\"type\":\"rate_limited\",\"param\":null,\"code\":\"1300\",\"raw_status_code\":429}",
+      "execution_time_seconds": 0.5660671000005095
+    },
+    {
+      "step": 8,
+      "timestamp": "2026-09-17T08:49:22.291194+00:00",
+      "type": "error",
+      "attempt": 1,
+      "error_type": "RateLimitError",
+      "error_message": "litellm.RateLimitError: RateLimitError: MistralException - {\"object\":\"error\",\"message\":\"Rate limit exceeded\",\"type\":\"rate_limited\",\"param\":null,\"code\":\"1300\",\"raw_status_code\":429}",
+      "temporary_api_error": true
+    },
+    {
+      "step": 9,
+      "timestamp": "2026-09-17T08:49:22.291194+00:00",
+      "type": "retry_wait",
+      "attempt": 1,
+      "wait_seconds": 35,
+      "description": "Temporary failure detected (RateLimitError). Waiting 35 seconds before retry."
+    },
+    {
+      "step": 10,
+      "timestamp": "2026-09-17T08:49:57.292321+00:00",
+      "type": "agent_start",
+      "attempt": 2,
+      "description": "Starting crewai agent (attempt 2/3)."
+    },
+    {
+      "step": 11,
+      "timestamp": "2026-09-17T08:49:57.292321+00:00",
+      "type": "planning",
+      "description": "CrewAI Mistral agent received benchmark task (domain: education)."
+    },
+    {
+      "step": 12,
+      "timestamp": "2026-09-17T08:49:57.335335+00:00",
+      "type": "agent_execution",
+      "description": "CrewAI Mistral agent started execution."
+    },
+    {
+      "step": 13,
+      "timestamp": "2026-09-17T08:49:57.335335+00:00",
+      "type": "api_call",
+      "api": "mistral",
+      "operation": "crew_kickoff",
+      "model": "mistral/mistral-small-latest",
+      "description": "CrewAI invoked Mistral."
+    },
+    {
+      "step": 14,
+      "timestamp": "2026-09-17T08:49:58.121366+00:00",
+      "type": "api_error",
+      "api": "mistral",
+      "operation": "crew_kickoff",
+      "model": "mistral/mistral-small-latest",
+      "duration_seconds": 0.789854299997387,
+      "error_type": "RateLimitError",
+      "error_message": "litellm.RateLimitError: RateLimitError: MistralException - {\"object\":\"error\",\"message\":\"Rate limit exceeded\",\"type\":\"rate_limited\",\"param\":null,\"code\":\"1300\",\"raw_status_code\":429}",
+      "description": "Mistral execution failed."
+    },
+    {
+      "step": 15,
+      "timestamp": "2026-09-17T08:49:58.121366+00:00",
+      "type": "error",
+      "error_type": "RateLimitError",
+      "error_message": "litellm.RateLimitError: RateLimitError: MistralException - {\"object\":\"error\",\"message\":\"Rate limit exceeded\",\"type\":\"rate_limited\",\"param\":null,\"code\":\"1300\",\"raw_status_code\":429}",
+      "execution_time_seconds": 0.7898672000010265
+    },
+    {
+      "step": 16,
+      "timestamp": "2026-09-17T08:49:58.121366+00:00",
+      "type": "error",
+      "attempt": 2,
+      "error_type": "RateLimitError",
+      "error_message": "litellm.RateLimitError: RateLimitError: MistralException - {\"object\":\"error\",\"message\":\"Rate limit exceeded\",\"type\":\"rate_limited\",\"param\":null,\"code\":\"1300\",\"raw_status_code\":429}",
+      "temporary_api_error": true
+    },
+    {
+      "step": 17,
+      "timestamp": "2026-09-17T08:49:58.121366+00:00",
+      "type": "retry_wait",
+      "attempt": 2,
+      "wait_seconds": 65,
+      "description": "Temporary failure detected (RateLimitError). Waiting 65 seconds before retry."
+    },
+    {
+      "step": 18,
+      "timestamp": "2026-09-17T08:51:03.128471+00:00",
+      "type": "agent_start",
+      "attempt": 3,
+      "description": "Starting crewai agent (attempt 3/3)."
+    },
+    {
+      "step": 19,
+      "timestamp": "2026-09-17T08:51:03.128956+00:00",
+      "type": "planning",
+      "description": "CrewAI Mistral agent received benchmark task (domain: education)."
+    },
+    {
+      "step": 20,
+      "timestamp": "2026-09-17T08:51:03.143374+00:00",
+      "type": "agent_execution",
+      "description": "CrewAI Mistral agent started execution."
+    },
+    {
+      "step": 21,
+      "timestamp": "2026-09-17T08:51:03.143374+00:00",
+      "type": "api_call",
+      "api": "mistral",
+      "operation": "crew_kickoff",
+      "model": "mistral/mistral-small-latest",
+      "description": "CrewAI invoked Mistral."
+    },
+    {
+      "step": 22,
+      "timestamp": "2026-09-17T08:51:03.663704+00:00",
+      "type": "api_error",
+      "api": "mistral",
+      "operation": "crew_kickoff",
+      "model": "mistral/mistral-small-latest",
+      "duration_seconds": 0.5180470999985118,
+      "error_type": "RateLimitError",
+      "error_message": "litellm.RateLimitError: RateLimitError: MistralException - {\"object\":\"error\",\"message\":\"Rate limit exceeded\",\"type\":\"rate_limited\",\"param\":null,\"code\":\"1300\",\"raw_status_code\":429}",
+      "description": "Mistral execution failed."
+    },
+    {
+      "step": 23,
+      "timestamp": "2026-09-17T08:51:03.663704+00:00",
+      "type": "error",
+      "error_type": "RateLimitError",
+      "error_message": "litellm.RateLimitError: RateLimitError: MistralException - {\"object\":\"error\",\"message\":\"Rate limit exceeded\",\"type\":\"rate_limited\",\"param\":null,\"code\":\"1300\",\"raw_status_code\":429}",
+      "execution_time_seconds": 0.5180567000061274
+    },
+    {
+      "step": 24,
+      "timestamp": "2026-09-17T08:51:03.663704+00:00",
+      "type": "error",
+      "attempt": 3,
+      "error_type": "RateLimitError",
+      "error_message": "litellm.RateLimitError: RateLimitError: MistralException - {\"object\":\"error\",\"message\":\"Rate limit exceeded\",\"type\":\"rate_limited\",\"param\":null,\"code\":\"1300\",\"raw_status_code\":429}",
+      "temporary_api_error": true
+    },
+    {
+      "step": 25,
+      "timestamp": "2026-09-17T08:51:03.666638+00:00",
+      "type": "execution_failed",
+      "description": "crewai failed to complete task education_014."
+    }
+  ],
+  "final_output": null
+}

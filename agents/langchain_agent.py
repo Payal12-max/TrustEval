@@ -46,7 +46,7 @@ if not MISTRAL_API_KEY:
 
 MISTRAL_MODEL = "mistral-small-latest"
 
-MAX_OUTPUT_TOKENS = 3500
+MAX_OUTPUT_TOKENS = 2000
 
 
 # ============================================================

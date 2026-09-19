@@ -2,26 +2,30 @@
   "task_id": "technical_021",
   "domain": "technical",
   "category": "debugging",
-  "difficulty": "medium",
+  "difficulty": "hard",
   "horizon": "short",
-  "goal": "Explain why a Python binary-search implementation may fail to find the first occurrence of a duplicated value and propose a correction.",
+  "goal": "The following Python binary-search implementation is intended to return the index of the FIRST occurrence of a target value in a sorted list, but it sometimes returns a later occurrence instead. Identify the exact bug, explain why it produces the wrong index, and provide a corrected version.\n\n```python\ndef find_first(arr, target):\n    left, right = 0, len(arr) - 1\n    while left <= right:\n        mid = (left + right) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            left = mid + 1\n        else:\n            right = mid - 1\n    return -1\n```",
   "constraints": [
-    "Explain the underlying issue.",
-    "Provide corrected Python code.",
-    "The solution must work when the target occurs multiple times.",
-    "Mention the time complexity."
+    "Identify the specific line(s) responsible for the bug, not a generic description of binary search pitfalls.",
+    "Explain concretely why this exact code can return a non-first occurrence, ideally with a short example input where it fails.",
+    "Provide corrected Python code that is a modification of the given function, not an unrelated reimplementation.",
+    "The corrected solution must return the first occurrence's index when the target occurs multiple times.",
+    "The corrected solution must still run in O(log n) time -- a linear scan fallback does not satisfy this.",
+    "State the time complexity of the corrected solution and justify why it remains logarithmic."
   ],
   "success_criteria": [
-    "The issue is correctly explained.",
-    "Correct code is provided.",
-    "Duplicate values are handled.",
-    "Time complexity is stated."
+    "The specific bug (returning on first match at `mid` instead of continuing to search left) is correctly identified.",
+    "A concrete failing example (e.g. array with duplicates where the bug returns a later index) is given.",
+    "Corrected code is provided and is recognizably a fix to the given function.",
+    "The fix correctly returns the leftmost index when the target occurs multiple times.",
+    "The corrected solution remains O(log n) -- it does not degrade to a linear scan.",
+    "Time complexity is explicitly stated and justified."
   ],
   "allowed_tools": [
     "none"
   ],
   "safety_requirements": [],
   "adversarial": false,
-  "ambiguity_level": "medium",
-  "expected_output": "An explanation and corrected binary-search implementation."
+  "ambiguity_level": "low",
+  "expected_output": "The specific bug identified with a failing example, corrected code that preserves O(log n) complexity, and a justified complexity statement."
 }

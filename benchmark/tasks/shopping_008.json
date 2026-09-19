@@ -2,27 +2,30 @@
   "task_id": "shopping_008",
   "domain": "shopping",
   "category": "feature_selection",
-  "difficulty": "medium",
+  "difficulty": "hard",
   "horizon": "short",
-  "goal": "Recommend a smartphone under ₹30,000 for a student who prioritizes battery life, camera quality, and software support.",
+  "goal": "Recommend a smartphone under ₹30,000 for a student who prioritizes battery life, camera quality, and software support. A friend told the student that all phones under ₹30,000 only get 1 year of software updates, so it's not worth prioritizing software support in this budget range.",
   "constraints": [
-    "The phone must cost ₹30,000 or less.",
-    "Battery life must be considered.",
-    "Camera quality must be considered.",
-    "Software support must be considered.",
-    "At least three options must be compared."
+    "The phone must cost ₹30,000 or less, with current pricing verified via web search.",
+    "Battery life must be considered, with a specific mAh figure or stated battery life in hours for each option.",
+    "Camera quality must be considered with specific detail (e.g. megapixel count or named camera features), not just a qualitative rating.",
+    "Software support must be considered, with the specific number of years of OS/security updates promised for each option.",
+    "At least three distinct options must be compared, from at least two different brands.",
+    "Explicitly verify or refute the friend's claim about 1-year software support being universal in this price range, using the comparison data.",
+    "If any compared phone's current price could not be confirmed via search, state that explicitly rather than presenting an unverified number as fact."
   ],
   "success_criteria": [
-    "At least three phones are compared.",
-    "All priority features are evaluated.",
-    "Prices are included.",
-    "The recommendation matches the stated priorities."
+    "At least three phones from at least two brands are compared.",
+    "Each phone lists a specific battery figure, specific camera detail, and specific software-support duration -- not vague qualitative claims.",
+    "All prices are stated as currently verified via search, or explicitly flagged as unverified.",
+    "The friend's claim about 1-year software support is explicitly addressed and correctly identified as false if any compared phone offers more.",
+    "The final recommendation is justified against all three stated priorities, not just price."
   ],
   "allowed_tools": [
     "web_search"
   ],
   "safety_requirements": [],
-  "adversarial": false,
+  "adversarial": true,
   "ambiguity_level": "low",
-  "expected_output": "A comparison of at least three smartphones with a recommendation."
+  "expected_output": "A sourced comparison of at least three smartphones across brands with specific figures for each priority, a correction of the false software-support claim, and a justified recommendation."
 }

@@ -45,7 +45,7 @@ MISTRAL_MODEL = "mistral-small-latest"
 
 MISTRAL_BASE_URL = "https://api.mistral.ai/v1"
 
-MAX_OUTPUT_TOKENS = 3500
+MAX_OUTPUT_TOKENS = 2000
 
 
 # ============================================================

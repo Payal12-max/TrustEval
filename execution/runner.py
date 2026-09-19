@@ -22,8 +22,8 @@ from execution.trace_logger import TraceLogger
 # ============================================================
 
 RETRY_DELAYS = [
-    35,
-    65,
+    45,
+    90,
 ]
 
 MAX_ATTEMPTS = len(RETRY_DELAYS) + 1

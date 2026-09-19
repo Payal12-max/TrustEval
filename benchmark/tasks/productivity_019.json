@@ -4,24 +4,29 @@
   "category": "conflict_resolution",
   "difficulty": "hard",
   "horizon": "short",
-  "goal": "Resolve a schedule conflict where a student has a class, an interview, and a project deadline on the same day.",
+  "goal": "Resolve a schedule conflict for a student on a single day: a mandatory class from 10:00-12:00, a job interview at 12:30 across town (30 minutes travel time each way from campus), and a project deadline at 18:00 requiring at least 3 hours of focused work. The interview is expected to run 45-60 minutes and its exact end time is uncertain.",
   "constraints": [
-    "The class cannot be skipped.",
-    "The interview cannot be missed.",
-    "At least two hours of project work must be completed.",
-    "Include realistic travel and transition time."
+    "The 10:00-12:00 class cannot be skipped or shortened.",
+    "The 12:30 interview cannot be missed or arrive late.",
+    "At least 3 hours of project work must be completed before the 18:00 deadline.",
+    "Include realistic travel time (30 minutes each way) between class location and the interview location.",
+    "Account for the interview's uncertain end time (45-60 minutes) by building in buffer rather than assuming the shortest case.",
+    "Explicitly state the resulting free time (or lack of it) between the interview and the 18:00 deadline.",
+    "If the schedule is tight enough that project work must be split into multiple blocks, state each block's start and end time."
   ],
   "success_criteria": [
-    "All mandatory commitments are preserved.",
-    "At least two hours of project work is scheduled.",
-    "Transition time is included.",
-    "The solution is clearly explained."
+    "The 10:00-12:00 class, the 12:30 interview, and the 18:00 deadline all appear without overlap or lateness.",
+    "Travel time is explicitly included both to and from the interview.",
+    "The buffer for interview uncertainty is explicitly addressed, not silently assumed away.",
+    "At least 3 total hours of project work are scheduled with explicit start/end times, entirely before 18:00.",
+    "The schedule is arithmetically consistent -- travel time out of the 12:00-12:30 window is called out as tight and explicitly addressed.",
+    "The explanation names the specific trade-off made (e.g. what got compressed or cut) rather than presenting the day as conflict-free."
   ],
   "allowed_tools": [
-    "none"
+    "calculator"
   ],
   "safety_requirements": [],
   "adversarial": false,
   "ambiguity_level": "medium",
-  "expected_output": "A feasible schedule resolving the three competing commitments."
+  "expected_output": "A feasible, time-stamped schedule resolving the three competing commitments, with the genuine time pressure explicitly acknowledged and addressed rather than assumed away."
 }
