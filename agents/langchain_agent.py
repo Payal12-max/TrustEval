@@ -44,7 +44,7 @@ if not MISTRAL_API_KEY:
         "Please add it to the project's .env file."
     )
 
-MISTRAL_MODEL = "mistral-small-latest"
+MISTRAL_MODEL = "ministral-3b-2512"
 
 MAX_OUTPUT_TOKENS = 2000
 

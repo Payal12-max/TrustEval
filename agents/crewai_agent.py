@@ -138,7 +138,7 @@ if not MISTRAL_API_KEY:
         "Please add it to the project's .env file."
     )
 
-MISTRAL_MODEL = "mistral/mistral-small-latest"
+MISTRAL_MODEL = "mistral/ministral-3b-2512"
 
 MAX_OUTPUT_TOKENS = 2000
 MAX_TOOL_OUTPUT_CHARS = 1500

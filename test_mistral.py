@@ -13,7 +13,7 @@ response = requests.post(
         "Content-Type": "application/json",
     },
     json={
-        "model": "mistral-small-latest",
+        "model": "ministral-3b-2512",
         "messages": [{"role": "user", "content": "Say hello in one word."}],
     },
 )

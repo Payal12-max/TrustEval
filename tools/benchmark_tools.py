@@ -78,12 +78,36 @@ def calculator(expression: str):
             "Only basic arithmetic expressions are supported."
         )
 
-    tree = ast.parse(
-        expression,
-        mode="eval"
-    )
+    # ========================================================
+    # Parse and evaluate, with a clear, actionable error
+    # message on failure.
+    #
+    # A raw SyntaxError/ValueError from ast.parse or evaluate()
+    # (e.g. "invalid syntax (<unknown>, line 1)") tells the
+    # calling model nothing about *why* its input was wrong or
+    # how to fix it. Smaller models in particular are prone to
+    # passing non-arithmetic input (time formats like "12:00",
+    # words, units) and need an actionable hint to self-correct
+    # on a retry rather than repeating the same mistake.
+    # ========================================================
 
-    return evaluate(tree.body)
+    try:
+
+        tree = ast.parse(
+            expression,
+            mode="eval"
+        )
+
+        return evaluate(tree.body)
+
+    except (SyntaxError, ValueError, TypeError, ZeroDivisionError) as error:
+
+        raise ValueError(
+            f"Could not evaluate '{expression}' as a plain arithmetic "
+            "expression. Use only numbers and the operators + - * / ** %, "
+            "e.g. '50 - 20'. Do not use time formats (like '12:00'), words, "
+            "or units."
+        ) from error
 
 
 # ============================================================

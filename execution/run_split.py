@@ -63,7 +63,7 @@ TASKS_DIR = PROJECT_ROOT / "benchmark" / "tasks"
 SPLIT_FILE = PROJECT_ROOT / "benchmark" / "task_split.json"
 
 # Seconds to wait between each individual task/framework run.
-INTER_TASK_DELAY_SECONDS = 12
+INTER_TASK_DELAY_SECONDS = 6
 
 FRAMEWORKS = [
     ("crewai", run_crewai_agent),

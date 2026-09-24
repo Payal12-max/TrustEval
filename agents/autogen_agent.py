@@ -41,7 +41,7 @@ if not MISTRAL_API_KEY:
         "Please add it to the project's .env file."
     )
 
-MISTRAL_MODEL = "mistral-small-latest"
+MISTRAL_MODEL = "ministral-3b-2512"
 
 MISTRAL_BASE_URL = "https://api.mistral.ai/v1"
 
