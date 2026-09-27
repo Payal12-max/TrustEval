@@ -138,9 +138,9 @@ if not MISTRAL_API_KEY:
         "Please add it to the project's .env file."
     )
 
-MISTRAL_MODEL = "mistral/ministral-3b-2512"
+MISTRAL_MODEL = "mistral/ministral-8b-2512"
 
-MAX_OUTPUT_TOKENS = 2000
+MAX_OUTPUT_TOKENS = 4000
 MAX_TOOL_OUTPUT_CHARS = 1500
 
 
@@ -152,6 +152,7 @@ llm = LLM(
     model=MISTRAL_MODEL,
     api_key=MISTRAL_API_KEY,
     max_tokens=MAX_OUTPUT_TOKENS,
+    temperature=0,
 )
 
 
@@ -261,7 +262,26 @@ def run_crewai_agent(benchmark_task, logger):
 
     # ========================================================
     # Task
+    #
+    # The "trust the calculator" note below exists because we
+    # observed CrewAI agents calling the calculator, getting a
+    # correct result, then discarding it and re-deriving the
+    # same arithmetic by hand repeatedly in text -- often never
+    # converging on a final answer. This nudge is a mitigation,
+    # not a guarantee; if an agent still discards tool results,
+    # that itself is a legitimate trace finding worth keeping.
     # ========================================================
+
+    tool_trust_note = (
+        "\nIMPORTANT: If you use the calculator tool, treat its "
+        "result as correct and final. Do not manually re-derive "
+        "or second-guess arithmetic the calculator has already "
+        "confirmed. Build your answer directly on top of "
+        "calculator results rather than redoing the same sums "
+        "by hand.\n"
+        if "calculator" in allowed_tools
+        else ""
+    )
 
     task_description = f"""
 Complete this benchmark task.
@@ -287,7 +307,7 @@ needs verification.
 Do not invent search results.
 Do not claim to have searched unless web_search was used.
 Provide a complete final answer.
-"""
+{tool_trust_note}"""
 
     benchmark_task_obj = Task(
         description=task_description,

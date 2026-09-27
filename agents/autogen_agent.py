@@ -41,11 +41,18 @@ if not MISTRAL_API_KEY:
         "Please add it to the project's .env file."
     )
 
-MISTRAL_MODEL = "ministral-3b-2512"
+MISTRAL_MODEL = "ministral-8b-2512"
 
 MISTRAL_BASE_URL = "https://api.mistral.ai/v1"
 
-MAX_OUTPUT_TOKENS = 2000
+MAX_OUTPUT_TOKENS = 4000
+
+# Kept at 0 to match langchain_agent.py and crewai_agent.py --
+# previously this was left at the API default (non-zero) while
+# LangChain explicitly set temperature=0, which meant framework
+# comparisons were confounded by inconsistent sampling behavior
+# rather than purely reflecting framework differences.
+TEMPERATURE = 0
 
 
 # ============================================================
@@ -68,6 +75,7 @@ model_client = OpenAIChatCompletionClient(
     api_key=MISTRAL_API_KEY,
 
     max_tokens=MAX_OUTPUT_TOKENS,
+    temperature=TEMPERATURE,
 
     model_info={
         "vision": False,

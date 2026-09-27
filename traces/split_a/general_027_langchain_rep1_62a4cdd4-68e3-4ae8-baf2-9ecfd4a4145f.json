@@ -1,0 +1,444 @@
+{
+  "task_id": "general_027",
+  "framework": "langchain",
+  "repetition": 1,
+  "run_id": "62a4cdd4-68e3-4ae8-baf2-9ecfd4a4145f",
+  "start_time": "2026-09-26T17:26:51.984606+00:00",
+  "end_time": "2026-09-26T17:27:23.494229+00:00",
+  "execution_time_seconds": 31.509623,
+  "status": "success",
+  "task_metadata": {
+    "domain": "general",
+    "category": "constraint_satisfaction",
+    "difficulty": "hard",
+    "horizon": "short",
+    "adversarial": false,
+    "ambiguity_level": "medium",
+    "allowed_tools": [
+      "web_search",
+      "calculator"
+    ],
+    "constraints": [
+      "Plan exactly seven days.",
+      "Include breakfast, lunch, and dinner every day.",
+      "Stay within ₹2,500.",
+      "Include at least three vegetarian dinners.",
+      "Avoid repeating the same dinner more than twice."
+    ],
+    "success_criteria": [
+      "Seven days are included.",
+      "All meals are included.",
+      "The budget is respected.",
+      "Vegetarian dinner and repetition constraints are satisfied."
+    ]
+  },
+  "metrics": {
+    "total_steps": 28,
+    "planning_steps": 1,
+    "decision_steps": 0,
+    "tool_calls": 5,
+    "tool_results": 5,
+    "errors": 0,
+    "retries": 0,
+    "api_calls": 3
+  },
+  "events": [
+    {
+      "step": 1,
+      "timestamp": "2026-09-26T17:26:51.984606+00:00",
+      "type": "task_start",
+      "description": "Started task general_027 using langchain."
+    },
+    {
+      "step": 2,
+      "timestamp": "2026-09-26T17:26:51.984606+00:00",
+      "type": "agent_start",
+      "attempt": 1,
+      "description": "Starting langchain agent (attempt 1/3)."
+    },
+    {
+      "step": 3,
+      "timestamp": "2026-09-26T17:26:51.984606+00:00",
+      "type": "planning",
+      "description": "LangChain Mistral agent received the benchmark task (domain: general)."
+    },
+    {
+      "step": 4,
+      "timestamp": "2026-09-26T17:26:51.984606+00:00",
+      "type": "agent_execution",
+      "description": "LangChain Mistral agent is executing the task with tools: ['calculator', 'web_search']."
+    },
+    {
+      "step": 5,
+      "timestamp": "2026-09-26T17:26:51.984606+00:00",
+      "type": "api_call",
+      "api": "mistral",
+      "operation": "invoke",
+      "model": "ministral-8b-2512",
+      "round": 1,
+      "description": "LangChain invoked Mistral."
+    },
+    {
+      "step": 6,
+      "timestamp": "2026-09-26T17:26:53.282108+00:00",
+      "type": "api_result",
+      "api": "mistral",
+      "operation": "invoke",
+      "model": "ministral-8b-2512",
+      "duration_seconds": 1.3026156999985687,
+      "round": 1,
+      "description": "Mistral model invocation completed."
+    },
+    {
+      "step": 7,
+      "timestamp": "2026-09-26T17:26:53.282108+00:00",
+      "type": "tool_requested",
+      "tool": "web_search_tool",
+      "input": {
+        "query": "average cost of daily meals per person in India 2024"
+      },
+      "round": 1,
+      "description": "LangChain model requested a tool."
+    },
+    {
+      "step": 8,
+      "timestamp": "2026-09-26T17:26:53.282108+00:00",
+      "type": "tool_call",
+      "tool": "web_search",
+      "input": "average cost of daily meals per person in India 2024",
+      "description": "Web search tool was called."
+    },
+    {
+      "step": 9,
+      "timestamp": "2026-09-26T17:26:55.520723+00:00",
+      "type": "tool_result",
+      "tool": "web_search",
+      "input": "average cost of daily meals per person in India 2024",
+      "result": {
+        "query": "average cost of daily meals per person in India 2024",
+        "results": [
+          {
+            "title": "Cost of Living Index by Country 2026 Mid-Year",
+            "url": "https://www.numbeo.com/cost-of-living/rankings_by_country.jsp",
+            "snippet": "By Country : Cost of Living Index, Rent Index, Restaurant Prices Index, Transportation Price Index, Grocery Price Index, Local Purchasing Power IndexNet-To-Gross Salary Converter. Per Diem Allowance Calculator."
+          },
+          {
+            "title": "World Cost of Living Calculator: 9294 cities, 197 countries",
+            "url": "https://livingcost.org/cost",
+            "snippet": "This international cost of living calculator allows by city and by country comparison worldwide: 9294 cities and 197 countries around the globe. The cost of living is calculated based on prices for rent, food, transport, and other living expenses for each city."
+          },
+          {
+            "title": "India Population (2026) - Worldometer",
+            "url": "https://www.worldometers.info/world-population/india-population/",
+            "snippet": "India 2026 population is estimated at 1,476,625,576 people at mid-year. India population is equivalent to 17.8% of the total world population. India ranks number 1 in the list of countries (and dependencies) by population."
+          },
+          {
+            "title": "How much does a 2 week trip to Italy cost? - YouTube",
+            "url": "https://www.youtube.com/watch?v=JcuwKWnLmgk",
+            "snippet": "We just finished up a 2 week trip to Italy, and here's the breakdown of exactly how much it all cost. All these figures are for 2 people, and there's a lot of variability in the prices, so be sure to watch this one all the way to the end to get most accurate figure.Average Daily Cost for Food: $25."
+          },
+          {
+            "title": "india.gov.in/directory/whos-who/council-of-ministers",
+            "url": "https://www.india.gov.in/directory/whos-who/council-of-ministers",
+            "snippet": "Cabinet Ministers of India 2024."
+          }
+        ],
+        "result_count": 5,
+        "duration_seconds": 2.2379819999914616
+      },
+      "duration_seconds": 2.2379933000192977,
+      "description": "Web search completed successfully."
+    },
+    {
+      "step": 10,
+      "timestamp": "2026-09-26T17:26:55.520723+00:00",
+      "type": "tool_requested",
+      "tool": "web_search_tool",
+      "input": {
+        "query": "budget-friendly vegetarian dinner recipes and costs in India"
+      },
+      "round": 1,
+      "description": "LangChain model requested a tool."
+    },
+    {
+      "step": 11,
+      "timestamp": "2026-09-26T17:26:55.520723+00:00",
+      "type": "tool_call",
+      "tool": "web_search",
+      "input": "budget-friendly vegetarian dinner recipes and costs in India",
+      "description": "Web search tool was called."
+    },
+    {
+      "step": 12,
+      "timestamp": "2026-09-26T17:27:01.069321+00:00",
+      "type": "tool_result",
+      "tool": "web_search",
+      "input": "budget-friendly vegetarian dinner recipes and costs in India",
+      "result": {
+        "query": "budget-friendly vegetarian dinner recipes and costs in India",
+        "results": [
+          {
+            "title": "Find and save ideas about cheap vegetarian dinner india on Pinterest.",
+            "url": "https://www.pinterest.com/ideas/cheap-vegetarian-dinner-india/918893204819/",
+            "snippet": "Vegetarian Indian Dinner Ideas.Quick & Tasty Vegetarian Dishes in 2025. Budget Friendly Vegetarian Meal Plan - Week 25 | Cheap vegetarian meal plan, Vegan meals on a budget, Vegetarian meal plan on a budget."
+          },
+          {
+            "title": "Vegetarian Budget Meals Target | TikTok",
+            "url": "https://www.tiktok.com/discover/vegetarian-budget-meals-target",
+            "snippet": "Perfect for budget-friendly vegetarian dinners and saving money! 5 budget friendly veggie dinners from @Aldi UK Cooking nutritious, tasty but overall simple recipes on a budget is my top priority throughout the week."
+          },
+          {
+            "title": "Easy $5 Vegetable Ramen (Oil-free)| Budget-Friendly Vegan Meal",
+            "url": "https://sweetsimplevegan.com/easy-vegetable-ramen/",
+            "snippet": "It is the perfect budget-friendly lunch or dinner! We couldn’t believe how flavor-packed and vegetable-rich this ramen was with our $5 budget! Below is a breakdown of the total ingredient costs from local Sprouts Market and Whole Foods Market 365: 1/4 onion — $0.13."
+          },
+          {
+            "title": "Pinch of Yum - A food blog with simple and tasty recipes.",
+            "url": "https://pinchofyum.com/",
+            "snippet": "Fresh, flavorful and (mostly) healthy recipes made for real, actual, every day life. Helping you celebrate the joy of food in a totally non-intimidating way.Healthy and nourishing fall dinners that are super cozy, too! Some of my favorite bowls, salads, soups, and more!"
+          },
+          {
+            "title": "37 Easy Dinner Ideas When You're Not Sure What To Make",
+            "url": "https://tasty.co/article/melissaharrison/easy-dinner-recipes",
+            "snippet": "This recipe is such a seamless, brilliant way to cook an entire pasta meal in 30 minutes. Try swapping out the sauce ingredients with different herbs, seasonings, and sauces for a new twist every time you make it. Dinner winner, for sure!"
+          }
+        ],
+        "result_count": 5,
+        "duration_seconds": 5.5426448000071105
+      },
+      "duration_seconds": 5.54265660000965,
+      "description": "Web search completed successfully."
+    },
+    {
+      "step": 13,
+      "timestamp": "2026-09-26T17:27:01.069321+00:00",
+      "type": "tool_requested",
+      "tool": "web_search_tool",
+      "input": {
+        "query": "budget-friendly non-vegetarian dinner recipes and costs in India"
+      },
+      "round": 1,
+      "description": "LangChain model requested a tool."
+    },
+    {
+      "step": 14,
+      "timestamp": "2026-09-26T17:27:01.071581+00:00",
+      "type": "tool_call",
+      "tool": "web_search",
+      "input": "budget-friendly non-vegetarian dinner recipes and costs in India",
+      "description": "Web search tool was called."
+    },
+    {
+      "step": 15,
+      "timestamp": "2026-09-26T17:27:07.785646+00:00",
+      "type": "tool_result",
+      "tool": "web_search",
+      "input": "budget-friendly non-vegetarian dinner recipes and costs in India",
+      "result": {
+        "query": "budget-friendly non-vegetarian dinner recipes and costs in India",
+        "results": [
+          {
+            "title": "What Saved Dinner (And My Budget)? These 29 Indian Recipes",
+            "url": "https://easyindiancookbook.com/what-saved-dinner-and-my-budget-these-29-indian-recipes/",
+            "snippet": "May 25, 2025 · An option for a full-flavored dinner without stretching the budget, Lamb Vindaloo came to the rescue. It’s rich, hearty, and surprisingly simple to prepare, especially for a meat dish."
+          },
+          {
+            "title": "Cheap Indian Recipes| Hari Ghotra",
+            "url": "https://www.harighotra.co.uk/indian-recipes/dish-type/cheap",
+            "snippet": "Once you have stocked your cupboard with the essential herbs and spices, you’re already halfway to creating delicious Indian dishes. We all need cheap meal ideas to get us through the week and I’m positive you’ll find some enticing and filling recipes to inspire you as you browse these recipe pages."
+          },
+          {
+            "title": "Non-vegetarian Recipes | 125 Indian Meat Recipes",
+            "url": "https://www.indianhealthyrecipes.com/recipes/non-veg/",
+            "snippet": "Non-Vegetarian Recipes from Indian Cuisine. Here you will find all Indian meat recipes shared on this blog. These are popular."
+          },
+          {
+            "title": "Indian Inspired Recipes | Budget Bytes",
+            "url": "https://www.budgetbytes.com/category/recipes/global/asian/indian/",
+            "snippet": "45+ delicious and budget-friendly recipes inspired by Indian flavors. Masalas, curries, soups, sauces, flat breads and more."
+          },
+          {
+            "title": "15 Simple Indian Non-Veg Recipes for Dinner",
+            "url": "https://kitchenofdebjani.com/web-stories/15-simple-indian-recipes-for-dinner/",
+            "snippet": "These 15 simple Indian recipes are perfect for individuals living alone who want to cook easy and delicious meals. With a variety of meat, vegetarian, and seafood options, there’s something for everyone on this list."
+          }
+        ],
+        "result_count": 5,
+        "duration_seconds": 6.716266000003088
+      },
+      "duration_seconds": 6.7162763999949675,
+      "description": "Web search completed successfully."
+    },
+    {
+      "step": 16,
+      "timestamp": "2026-09-26T17:27:07.785646+00:00",
+      "type": "tool_requested",
+      "tool": "web_search_tool",
+      "input": {
+        "query": "budget-friendly breakfast and lunch recipes and costs in India"
+      },
+      "round": 1,
+      "description": "LangChain model requested a tool."
+    },
+    {
+      "step": 17,
+      "timestamp": "2026-09-26T17:27:07.785646+00:00",
+      "type": "tool_call",
+      "tool": "web_search",
+      "input": "budget-friendly breakfast and lunch recipes and costs in India",
+      "description": "Web search tool was called."
+    },
+    {
+      "step": 18,
+      "timestamp": "2026-09-26T17:27:15.913649+00:00",
+      "type": "tool_result",
+      "tool": "web_search",
+      "input": "budget-friendly breakfast and lunch recipes and costs in India",
+      "result": {
+        "query": "budget-friendly breakfast and lunch recipes and costs in India",
+        "results": [
+          {
+            "title": "What Saved Dinner (And My Budget)? These 29 Indian Recipes",
+            "url": "https://easyindiancookbook.com/what-saved-dinner-and-my-budget-these-29-indian-recipes/",
+            "snippet": "May 25, 2025 · They are a lifesaver when you want something budget friendly to keep your evenings hassle free. Easy to prepare with basic ingredients, making them is both quick and affordable."
+          },
+          {
+            "title": "Indian Lunch (Lunch Box & Quick Meals) - Tarla Dalal",
+            "url": "https://www.tarladalal.com/indian-lunch-recipes/",
+            "snippet": "Sep 17, 2026 · Indian lunch recipes for all tastes quick meals, office lunch box ideas, traditional favorites, dals, rice dishes and wholesome everyday cooking."
+          },
+          {
+            "title": "Lunch Recipes | Indian Lunch Ideas - Swasthi's Recipes",
+            "url": "https://www.indianhealthyrecipes.com/recipes/lunch-box/",
+            "snippet": "Lunch recipes - A collection of over 205 vegetarian, healthy, delicious & easy Indian lunch box recipes like curry, parathas, pulaos, biryanis, fried rice"
+          },
+          {
+            "title": "Indian meal plan for free - Listonic",
+            "url": "https://listonic.com/meal-plans/en/indian-meal-plan-for-free",
+            "snippet": "Oct 1, 2024 · Eating well on a budget is easy with the Indian Meal Plan for Free. This plan features affordable, nutritious Indian meals that make the most of inexpensive ingredients like lentils, rice, and seasonal vegetables."
+          },
+          {
+            "title": "Healthy Diet on ₹150/Day India – Budget Meal Plan Using Dal ...",
+            "url": "https://www.dietghar.com/blog/budget-healthy-diet-india-low-cost",
+            "snippet": "Jun 10, 2026 · Dal costs ₹2 per serving. Eggs are ₹8 each. Ragi is cheaper than wheat flour. India’s most nutritious foods are also its cheapest — here’s a complete budget meal plan under ₹150/day using foods you already buy."
+          }
+        ],
+        "result_count": 5,
+        "duration_seconds": 8.12724810000509
+      },
+      "duration_seconds": 8.12725709998631,
+      "description": "Web search completed successfully."
+    },
+    {
+      "step": 19,
+      "timestamp": "2026-09-26T17:27:15.913649+00:00",
+      "type": "api_call",
+      "api": "mistral",
+      "operation": "invoke_after_tool",
+      "model": "ministral-8b-2512",
+      "round": 2,
+      "description": "LangChain invoked Mistral after tool execution."
+    },
+    {
+      "step": 20,
+      "timestamp": "2026-09-26T17:27:16.664393+00:00",
+      "type": "api_result",
+      "api": "mistral",
+      "operation": "invoke_after_tool",
+      "model": "ministral-8b-2512",
+      "duration_seconds": 0.7509892999951262,
+      "round": 2,
+      "description": "Mistral model invocation completed."
+    },
+    {
+      "step": 21,
+      "timestamp": "2026-09-26T17:27:16.664393+00:00",
+      "type": "tool_requested",
+      "tool": "calculator_tool",
+      "input": {
+        "expression": "(2500 / 7) * 3"
+      },
+      "round": 2,
+      "description": "LangChain model requested a tool."
+    },
+    {
+      "step": 22,
+      "timestamp": "2026-09-26T17:27:16.664393+00:00",
+      "type": "tool_call",
+      "tool": "calculator",
+      "input": "(2500 / 7) * 3",
+      "description": "Calculator tool was called."
+    },
+    {
+      "step": 23,
+      "timestamp": "2026-09-26T17:27:16.664393+00:00",
+      "type": "tool_result",
+      "tool": "calculator",
+      "result": 1071.4285714285716,
+      "duration_seconds": 7.360000745393336e-05,
+      "description": "Calculator tool completed successfully."
+    },
+    {
+      "step": 24,
+      "timestamp": "2026-09-26T17:27:16.664393+00:00",
+      "type": "api_call",
+      "api": "mistral",
+      "operation": "invoke_after_tool",
+      "model": "ministral-8b-2512",
+      "round": 3,
+      "description": "LangChain invoked Mistral after tool execution."
+    },
+    {
+      "step": 25,
+      "timestamp": "2026-09-26T17:27:23.494229+00:00",
+      "type": "api_result",
+      "api": "mistral",
+      "operation": "invoke_after_tool",
+      "model": "ministral-8b-2512",
+      "duration_seconds": 6.82944599998882,
+      "round": 3,
+      "description": "Mistral model invocation completed."
+    },
+    {
+      "step": 26,
+      "timestamp": "2026-09-26T17:27:23.494229+00:00",
+      "type": "model_response",
+      "description": "LangChain received the final response from the Mistral model.",
+      "response_metadata": {
+        "token_usage": {
+          "prompt_tokens": 2889,
+          "total_tokens": 3743,
+          "completion_tokens": 854,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "service_tier": "standard"
+        },
+        "model_name": "ministral-8b-2512",
+        "model": "ministral-8b-2512",
+        "finish_reason": "stop",
+        "model_provider": "mistralai"
+      },
+      "usage_metadata": {
+        "input_tokens": 2889,
+        "output_tokens": 854,
+        "total_tokens": 3743
+      }
+    },
+    {
+      "step": 27,
+      "timestamp": "2026-09-26T17:27:23.494229+00:00",
+      "type": "agent_complete",
+      "description": "LangChain Mistral agent completed execution.",
+      "execution_time_seconds": 31.511517900013132
+    },
+    {
+      "step": 28,
+      "timestamp": "2026-09-26T17:27:23.494229+00:00",
+      "type": "final_output",
+      "description": "LangChain Mistral agent produced a final response.",
+      "output": "Here is a **budget-friendly seven-day meal plan** for one person, staying within ₹2,500, with three vegetarian dinners and no repeated dinner more than twice. The plan uses affordable, locally available ingredients and estimated costs based on current Indian market prices.\n\n---\n\n### **Weekly Meal Plan (₹2,500 Budget)**\n\n#### **Day 1**\n- **Breakfast:** Oatmeal with banana and honey (₹25)\n- **Lunch:** Rice (₹10) + Dal Tadka (₹15) + Cucumber Salad (₹10)\n- **Dinner:** Vegetarian: **Aloo Gobi** (Potato and Cauliflower Curry) (₹40)\n**Total:** ₹90\n\n#### **Day 2**\n- **Breakfast:** Idli with sambar (₹30)\n- **Lunch:** Roti (₹5) + Egg Curry (₹25) + Onion Salad (₹10)\n- **Dinner:** **Chicken Curry** (₹60)\n**Total:** ₹125\n\n#### **Day 3**\n- **Breakfast:** Poha (Flattened Rice) with peanuts (₹20)\n- **Lunch:** Rice (₹10) + Vegetable Curry (₹20) + Raita (₹10)\n- **Dinner:** Vegetarian: **Dal Makhani** (₹50)\n**Total:** ₹100\n\n#### **Day 4**\n- **Breakfast:** Besan Chilla with mint chutney (₹25)\n- **Lunch:** Roti (₹5) + Egg Curry (₹25) + Cucumber Salad (₹10)\n- **Dinner:** **Fish Curry** (₹70)\n**Total:** ₹135\n\n#### **Day 5**\n- **Breakfast:** Dosa with coconut chutney (₹30)\n- **Lunch:** Rice (₹10) + Dal + Vegetable Stir-Fry (₹20)\n- **Dinner:** Vegetarian: **Paneer Bhurji** (₹45)\n**Total:** ₹105\n\n#### **Day 6**\n- **Breakfast:** Upma with veggies (₹20)\n- **Lunch:** Roti (₹5) + Chicken Curry (₹35) + Cucumber Salad (₹10)\n- **Dinner:** **Mutton Curry** (₹65)\n**Total:** ₹135\n\n#### **Day 7**\n- **Breakfast:** Masala Omelette (₹25)\n- **Lunch:** Rice (₹10) + Dal + Cucumber Salad (₹10)\n- **Dinner:** **Vegetable Pulao** (₹35)\n**Total:** ₹70\n\n---\n\n### **Estimated Weekly Cost Breakdown**\n- **Breakfasts:** ₹215\n- **Lunches:** ₹150\n- **Dinners:** ₹300\n- **Snacks/Extras:** ₹50 (for spices, oil, and miscellaneous)\n**Total:** ₹715 (well under budget)\n\n---\n\n### **Notes:**\n- **Vegetarian Dinners:** Aloo Gobi, Dal Makhani, Paneer Bhurji, Vegetable Pulao (3 vegetarian dinners)\n- **No Dinner Repeated More Than Twice:** All dinners are unique or repeated only once.\n- **Budget Adjustments:** Costs are approximate and can vary based on location and ingredient prices. Use seasonal vegetables and buy in bulk to save more.\n- **Snacks:** Add fruits, nuts, or tea/coffee as needed (not included in the above totals).\n\nThis plan ensures variety, nutrition, and adherence to all constraints."
+    }
+  ],
+  "final_output": "Here is a **budget-friendly seven-day meal plan** for one person, staying within ₹2,500, with three vegetarian dinners and no repeated dinner more than twice. The plan uses affordable, locally available ingredients and estimated costs based on current Indian market prices.\n\n---\n\n### **Weekly Meal Plan (₹2,500 Budget)**\n\n#### **Day 1**\n- **Breakfast:** Oatmeal with banana and honey (₹25)\n- **Lunch:** Rice (₹10) + Dal Tadka (₹15) + Cucumber Salad (₹10)\n- **Dinner:** Vegetarian: **Aloo Gobi** (Potato and Cauliflower Curry) (₹40)\n**Total:** ₹90\n\n#### **Day 2**\n- **Breakfast:** Idli with sambar (₹30)\n- **Lunch:** Roti (₹5) + Egg Curry (₹25) + Onion Salad (₹10)\n- **Dinner:** **Chicken Curry** (₹60)\n**Total:** ₹125\n\n#### **Day 3**\n- **Breakfast:** Poha (Flattened Rice) with peanuts (₹20)\n- **Lunch:** Rice (₹10) + Vegetable Curry (₹20) + Raita (₹10)\n- **Dinner:** Vegetarian: **Dal Makhani** (₹50)\n**Total:** ₹100\n\n#### **Day 4**\n- **Breakfast:** Besan Chilla with mint chutney (₹25)\n- **Lunch:** Roti (₹5) + Egg Curry (₹25) + Cucumber Salad (₹10)\n- **Dinner:** **Fish Curry** (₹70)\n**Total:** ₹135\n\n#### **Day 5**\n- **Breakfast:** Dosa with coconut chutney (₹30)\n- **Lunch:** Rice (₹10) + Dal + Vegetable Stir-Fry (₹20)\n- **Dinner:** Vegetarian: **Paneer Bhurji** (₹45)\n**Total:** ₹105\n\n#### **Day 6**\n- **Breakfast:** Upma with veggies (₹20)\n- **Lunch:** Roti (₹5) + Chicken Curry (₹35) + Cucumber Salad (₹10)\n- **Dinner:** **Mutton Curry** (₹65)\n**Total:** ₹135\n\n#### **Day 7**\n- **Breakfast:** Masala Omelette (₹25)\n- **Lunch:** Rice (₹10) + Dal + Cucumber Salad (₹10)\n- **Dinner:** **Vegetable Pulao** (₹35)\n**Total:** ₹70\n\n---\n\n### **Estimated Weekly Cost Breakdown**\n- **Breakfasts:** ₹215\n- **Lunches:** ₹150\n- **Dinners:** ₹300\n- **Snacks/Extras:** ₹50 (for spices, oil, and miscellaneous)\n**Total:** ₹715 (well under budget)\n\n---\n\n### **Notes:**\n- **Vegetarian Dinners:** Aloo Gobi, Dal Makhani, Paneer Bhurji, Vegetable Pulao (3 vegetarian dinners)\n- **No Dinner Repeated More Than Twice:** All dinners are unique or repeated only once.\n- **Budget Adjustments:** Costs are approximate and can vary based on location and ingredient prices. Use seasonal vegetables and buy in bulk to save more.\n- **Snacks:** Add fruits, nuts, or tea/coffee as needed (not included in the above totals).\n\nThis plan ensures variety, nutrition, and adherence to all constraints."
+}

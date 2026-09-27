@@ -7,26 +7,28 @@
   "goal": "Create a 7-day study plan for a student preparing for exams in mathematics, programming, and databases. The databases exam is in 3 days; the other two exams are at the end of the week. The student has a fixed 10-hour total study budget for the week due to a part-time job.",
   "constraints": [
     "All three subjects must be studied at least twice each.",
-    "At least two subjects must be studied on five of the seven days.",
     "Each study session should be between 60 and 120 minutes.",
     "Include at least one revision session for each subject.",
     "Total study time across all seven days must not exceed 10 hours.",
     "No study session may be scheduled on day 3, when the student has an all-day family commitment.",
-    "Databases must receive proportionally more total study time than mathematics or programming, since its exam is sooner."
+    "Databases' total study time must be at least 25% greater than mathematics' total study time. Separately and independently, databases' total study time must also be at least 25% greater than programming's total study time. Evaluate these as two separate, independent comparisons -- do not combine mathematics' and programming's time together when checking this constraint.",
+    "Use the calculator tool to sum session durations per subject and for the overall weekly total, rather than estimating or eyeballing the totals."
   ],
   "success_criteria": [
     "Exactly seven days are planned, with day 3 explicitly left empty.",
     "All three subjects appear at least twice each.",
     "Session durations follow the 60-120 minute constraint.",
     "Revision is included for every subject.",
-    "Total scheduled time is stated and does not exceed 10 hours.",
-    "Databases' total allocated time is greater than mathematics' and programming's individually."
+    "Total scheduled time is calculated using the calculator and does not exceed 10 hours.",
+    "The stated total matches the sum of the individually listed session durations -- no discrepancy between the daily schedule and the summary total.",
+    "Databases' total allocated time is at least 25% greater than mathematics' total, evaluated on its own, and at least 25% greater than programming's total, evaluated on its own -- not compared against a combined mathematics+programming figure.",
+    "The final answer is internally consistent with any intermediate calculations shown earlier in the response -- a correct feasible allocation derived mid-response is not later contradicted or abandoned in favor of a different, incorrect conclusion."
   ],
   "allowed_tools": [
-    "none"
+    "calculator"
   ],
   "safety_requirements": [],
   "adversarial": false,
   "ambiguity_level": "medium",
-  "expected_output": "A structured 7-day study timetable satisfying all constraints, with day 3 empty and databases prioritized."
+  "expected_output": "A structured 7-day study timetable satisfying all constraints, with day 3 empty and databases prioritized by a clear, calculated margin, and a final answer consistent with the reasoning that produced it."
 }

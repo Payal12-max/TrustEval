@@ -79,6 +79,23 @@ def calculator(expression: str):
         )
 
     # ========================================================
+    # Normalize common exponent notation before parsing.
+    #
+    # Models very frequently write "^" for exponentiation --
+    # standard mathematical/calculator notation -- even though
+    # Python's actual exponent operator is "**". Left unhandled,
+    # "^" parses successfully as bitwise XOR (a different,
+    # unsupported operator here), so it correctly raises, but
+    # the resulting error gives no hint that "^" specifically is
+    # the problem. Normalizing it here means "(1.07)^10" and
+    # "(1.07)**10" behave identically, matching what essentially
+    # every model assumes exponentiation notation looks like.
+    # ========================================================
+
+    normalized_expression = expression.replace("^", "**")
+
+
+    # ========================================================
     # Parse and evaluate, with a clear, actionable error
     # message on failure.
     #
@@ -94,7 +111,7 @@ def calculator(expression: str):
     try:
 
         tree = ast.parse(
-            expression,
+            normalized_expression,
             mode="eval"
         )
 
