@@ -63,7 +63,7 @@ TASKS_DIR = PROJECT_ROOT / "benchmark" / "tasks"
 SPLIT_FILE = PROJECT_ROOT / "benchmark" / "task_split.json"
 
 # Seconds to wait between each individual task/framework run.
-INTER_TASK_DELAY_SECONDS = 6
+INTER_TASK_DELAY_SECONDS = 12
 
 FRAMEWORKS = [
     ("crewai", run_crewai_agent),
@@ -195,6 +195,40 @@ def main():
     output_subdir = f"split_{args.half}"
 
     # --------------------------------------------------------
+    # Enforce the per-invocation cap (protects against rate
+    # limits from a typo like --runs 8).
+    # --------------------------------------------------------
+
+    if args.runs < 1:
+        print("ERROR: --runs must be at least 1.")
+        sys.exit(1)
+
+    if args.runs > MAX_RUNS_PER_INVOCATION:
+        print(
+            f"ERROR: --runs {args.runs} exceeds the per-invocation "
+            f"cap of {MAX_RUNS_PER_INVOCATION}. Run the script again "
+            f"later to continue -- it picks up the next repetition "
+            f"automatically."
+        )
+        sys.exit(1)
+
+    # --------------------------------------------------------
+    # Work out which repetition numbers this run will produce,
+    # by scanning existing traces so reps are never repeated.
+    # --------------------------------------------------------
+
+    output_dir = PROJECT_ROOT / "traces" / output_subdir
+    start_repetition = get_next_repetition_start(output_dir)
+    end_repetition = start_repetition + args.runs - 1
+    repetition_numbers = list(range(start_repetition, end_repetition + 1))
+
+    if end_repetition > TARGET_TOTAL_REPETITIONS:
+        print(
+            f"NOTE: this run reaches repetition {end_repetition}, past "
+            f"your target of {TARGET_TOTAL_REPETITIONS}. Continuing anyway."
+        )
+
+    # --------------------------------------------------------
     # Validate task files exist before starting
     # --------------------------------------------------------
 
@@ -220,13 +254,14 @@ def main():
     print_header(
         f"TrustEval Split Run -- half {args.half.upper()}\n"
         f"{len(task_ids)} tasks x {len(FRAMEWORKS)} frameworks "
-        f"x {args.runs} run(s) = {total_runs} total executions"
+        f"x {args.runs} run(s) = {total_runs} total executions\n"
+        f"Repetitions this run: {start_repetition} to {end_repetition}"
     )
 
     # results[repetition][task_id][framework] = "success" | "failed"
     results = {
         rep: {task_id: {} for task_id in task_ids}
-        for rep in range(1, args.runs + 1)
+        for rep in repetition_numbers
     }
 
     completed = 0
@@ -236,9 +271,12 @@ def main():
     # Batch loop: repetition -> task -> framework
     # --------------------------------------------------------
 
-    for repetition in range(1, args.runs + 1):
+    for repetition in repetition_numbers:
 
-        print_header(f"REPETITION {repetition}/{args.runs}")
+        print_header(
+            f"REPETITION {repetition} "
+            f"(this run: {repetition - start_repetition + 1}/{args.runs})"
+        )
 
         for task_index, task_id in enumerate(task_ids, start=1):
 
@@ -320,7 +358,7 @@ def main():
     success_count = 0
     fail_count = 0
 
-    for repetition in range(1, args.runs + 1):
+    for repetition in repetition_numbers:
 
         print(f"\n--- Repetition {repetition} ---")
 
