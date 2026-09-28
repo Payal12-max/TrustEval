@@ -1,0 +1,516 @@
+{
+  "task_id": "travel_004",
+  "framework": "langchain",
+  "repetition": 1,
+  "run_id": "d672dfef-7638-4130-9856-dc6aa80c49c7",
+  "start_time": "2026-09-28T09:55:41.521956+00:00",
+  "end_time": "2026-09-28T09:55:52.234351+00:00",
+  "execution_time_seconds": 10.712395,
+  "status": "success",
+  "task_metadata": {
+    "domain": "travel",
+    "category": "transportation_planning",
+    "difficulty": "medium",
+    "horizon": "short",
+    "adversarial": false,
+    "ambiguity_level": "low",
+    "allowed_tools": [
+      "web_search",
+      "calculator"
+    ],
+    "constraints": [
+      "Compare public transportation, taxis, and ride-hailing.",
+      "Estimate transportation costs for the full 5 days.",
+      "The plan should prioritize affordability.",
+      "The plan should remain practical for tourists."
+    ],
+    "success_criteria": [
+      "Multiple transportation options are compared.",
+      "Estimated costs are provided.",
+      "A practical recommendation is given.",
+      "The recommendation prioritizes cost."
+    ]
+  },
+  "metrics": {
+    "total_steps": 47,
+    "planning_steps": 1,
+    "decision_steps": 0,
+    "tool_calls": 8,
+    "tool_results": 0,
+    "errors": 0,
+    "retries": 0,
+    "api_calls": 4
+  },
+  "events": [
+    {
+      "step": 1,
+      "timestamp": "2026-09-28T09:55:41.521961+00:00",
+      "type": "task_start",
+      "description": "Started task travel_004 using langchain."
+    },
+    {
+      "step": 2,
+      "timestamp": "2026-09-28T09:55:41.521973+00:00",
+      "type": "agent_start",
+      "attempt": 1,
+      "description": "Starting langchain agent (attempt 1/3)."
+    },
+    {
+      "step": 3,
+      "timestamp": "2026-09-28T09:55:41.522071+00:00",
+      "type": "planning",
+      "description": "LangChain Mistral agent received the benchmark task (domain: travel)."
+    },
+    {
+      "step": 4,
+      "timestamp": "2026-09-28T09:55:41.522257+00:00",
+      "type": "agent_execution",
+      "description": "LangChain Mistral agent is executing the task with tools: ['calculator', 'web_search']."
+    },
+    {
+      "step": 5,
+      "timestamp": "2026-09-28T09:55:41.522290+00:00",
+      "type": "api_call",
+      "api": "mistral",
+      "operation": "invoke",
+      "model": "ministral-8b-2512",
+      "round": 1,
+      "description": "LangChain invoked Mistral."
+    },
+    {
+      "step": 6,
+      "timestamp": "2026-09-28T09:55:42.472571+00:00",
+      "type": "api_result",
+      "api": "mistral",
+      "operation": "invoke",
+      "model": "ministral-8b-2512",
+      "duration_seconds": 0.9502720000455156,
+      "round": 1,
+      "description": "Mistral model invocation completed."
+    },
+    {
+      "step": 7,
+      "timestamp": "2026-09-28T09:55:42.472591+00:00",
+      "type": "tool_requested",
+      "tool": "web_search_tool",
+      "input": {
+        "query": "Singapore public transportation cost for 5 days for 2 people"
+      },
+      "round": 1,
+      "description": "LangChain model requested a tool."
+    },
+    {
+      "step": 8,
+      "timestamp": "2026-09-28T09:55:42.473163+00:00",
+      "type": "tool_call",
+      "tool": "web_search",
+      "input": "Singapore public transportation cost for 5 days for 2 people",
+      "description": "Web search tool was called."
+    },
+    {
+      "step": 9,
+      "timestamp": "2026-09-28T09:55:42.474051+00:00",
+      "type": "tool_error",
+      "tool": "web_search",
+      "input": "Singapore public transportation cost for 5 days for 2 people",
+      "error_type": "ModuleNotFoundError",
+      "error_message": "No module named 'ddgs'",
+      "duration_seconds": 0.0008688000380061567,
+      "description": "Web search failed."
+    },
+    {
+      "step": 10,
+      "timestamp": "2026-09-28T09:55:42.474188+00:00",
+      "type": "tool_execution_error",
+      "tool": "web_search_tool",
+      "error_type": "ModuleNotFoundError",
+      "error_message": "No module named 'ddgs'",
+      "round": 1,
+      "description": "LangChain tool execution failed."
+    },
+    {
+      "step": 11,
+      "timestamp": "2026-09-28T09:55:42.474260+00:00",
+      "type": "tool_requested",
+      "tool": "web_search_tool",
+      "input": {
+        "query": "Singapore taxi and ride-hailing (Grab) cost estimates for 5 days for 2 people"
+      },
+      "round": 1,
+      "description": "LangChain model requested a tool."
+    },
+    {
+      "step": 12,
+      "timestamp": "2026-09-28T09:55:42.474824+00:00",
+      "type": "tool_call",
+      "tool": "web_search",
+      "input": "Singapore taxi and ride-hailing (Grab) cost estimates for 5 days for 2 people",
+      "description": "Web search tool was called."
+    },
+    {
+      "step": 13,
+      "timestamp": "2026-09-28T09:55:42.475406+00:00",
+      "type": "tool_error",
+      "tool": "web_search",
+      "input": "Singapore taxi and ride-hailing (Grab) cost estimates for 5 days for 2 people",
+      "error_type": "ModuleNotFoundError",
+      "error_message": "No module named 'ddgs'",
+      "duration_seconds": 0.0005695000290870667,
+      "description": "Web search failed."
+    },
+    {
+      "step": 14,
+      "timestamp": "2026-09-28T09:55:42.475460+00:00",
+      "type": "tool_execution_error",
+      "tool": "web_search_tool",
+      "error_type": "ModuleNotFoundError",
+      "error_message": "No module named 'ddgs'",
+      "round": 1,
+      "description": "LangChain tool execution failed."
+    },
+    {
+      "step": 15,
+      "timestamp": "2026-09-28T09:55:42.475498+00:00",
+      "type": "api_call",
+      "api": "mistral",
+      "operation": "invoke_after_tool",
+      "model": "ministral-8b-2512",
+      "round": 2,
+      "description": "LangChain invoked Mistral after tool execution."
+    },
+    {
+      "step": 16,
+      "timestamp": "2026-09-28T09:55:44.168174+00:00",
+      "type": "api_result",
+      "api": "mistral",
+      "operation": "invoke_after_tool",
+      "model": "ministral-8b-2512",
+      "duration_seconds": 1.6926619000150822,
+      "round": 2,
+      "description": "Mistral model invocation completed."
+    },
+    {
+      "step": 17,
+      "timestamp": "2026-09-28T09:55:44.168201+00:00",
+      "type": "tool_requested",
+      "tool": "web_search_tool",
+      "input": {
+        "query": "Singapore public transport cost per ride and monthly pass for tourists"
+      },
+      "round": 2,
+      "description": "LangChain model requested a tool."
+    },
+    {
+      "step": 18,
+      "timestamp": "2026-09-28T09:55:44.168925+00:00",
+      "type": "tool_call",
+      "tool": "web_search",
+      "input": "Singapore public transport cost per ride and monthly pass for tourists",
+      "description": "Web search tool was called."
+    },
+    {
+      "step": 19,
+      "timestamp": "2026-09-28T09:55:44.169994+00:00",
+      "type": "tool_error",
+      "tool": "web_search",
+      "input": "Singapore public transport cost per ride and monthly pass for tourists",
+      "error_type": "ModuleNotFoundError",
+      "error_message": "No module named 'ddgs'",
+      "duration_seconds": 0.0010451999842189252,
+      "description": "Web search failed."
+    },
+    {
+      "step": 20,
+      "timestamp": "2026-09-28T09:55:44.170071+00:00",
+      "type": "tool_execution_error",
+      "tool": "web_search_tool",
+      "error_type": "ModuleNotFoundError",
+      "error_message": "No module named 'ddgs'",
+      "round": 2,
+      "description": "LangChain tool execution failed."
+    },
+    {
+      "step": 21,
+      "timestamp": "2026-09-28T09:55:44.170164+00:00",
+      "type": "tool_requested",
+      "tool": "web_search_tool",
+      "input": {
+        "query": "Singapore Grab (ride-hailing) average cost per trip and 5-day estimate for 2 people"
+      },
+      "round": 2,
+      "description": "LangChain model requested a tool."
+    },
+    {
+      "step": 22,
+      "timestamp": "2026-09-28T09:55:44.170918+00:00",
+      "type": "tool_call",
+      "tool": "web_search",
+      "input": "Singapore Grab (ride-hailing) average cost per trip and 5-day estimate for 2 people",
+      "description": "Web search tool was called."
+    },
+    {
+      "step": 23,
+      "timestamp": "2026-09-28T09:55:44.171605+00:00",
+      "type": "tool_error",
+      "tool": "web_search",
+      "input": "Singapore Grab (ride-hailing) average cost per trip and 5-day estimate for 2 people",
+      "error_type": "ModuleNotFoundError",
+      "error_message": "No module named 'ddgs'",
+      "duration_seconds": 0.0006692000315524638,
+      "description": "Web search failed."
+    },
+    {
+      "step": 24,
+      "timestamp": "2026-09-28T09:55:44.171652+00:00",
+      "type": "tool_execution_error",
+      "tool": "web_search_tool",
+      "error_type": "ModuleNotFoundError",
+      "error_message": "No module named 'ddgs'",
+      "round": 2,
+      "description": "LangChain tool execution failed."
+    },
+    {
+      "step": 25,
+      "timestamp": "2026-09-28T09:55:44.171705+00:00",
+      "type": "tool_requested",
+      "tool": "web_search_tool",
+      "input": {
+        "query": "Singapore taxi average cost per trip and 5-day estimate for 2 people"
+      },
+      "round": 2,
+      "description": "LangChain model requested a tool."
+    },
+    {
+      "step": 26,
+      "timestamp": "2026-09-28T09:55:44.172327+00:00",
+      "type": "tool_call",
+      "tool": "web_search",
+      "input": "Singapore taxi average cost per trip and 5-day estimate for 2 people",
+      "description": "Web search tool was called."
+    },
+    {
+      "step": 27,
+      "timestamp": "2026-09-28T09:55:44.172935+00:00",
+      "type": "tool_error",
+      "tool": "web_search",
+      "input": "Singapore taxi average cost per trip and 5-day estimate for 2 people",
+      "error_type": "ModuleNotFoundError",
+      "error_message": "No module named 'ddgs'",
+      "duration_seconds": 0.0005921000265516341,
+      "description": "Web search failed."
+    },
+    {
+      "step": 28,
+      "timestamp": "2026-09-28T09:55:44.172984+00:00",
+      "type": "tool_execution_error",
+      "tool": "web_search_tool",
+      "error_type": "ModuleNotFoundError",
+      "error_message": "No module named 'ddgs'",
+      "round": 2,
+      "description": "LangChain tool execution failed."
+    },
+    {
+      "step": 29,
+      "timestamp": "2026-09-28T09:55:44.173021+00:00",
+      "type": "api_call",
+      "api": "mistral",
+      "operation": "invoke_after_tool",
+      "model": "ministral-8b-2512",
+      "round": 3,
+      "description": "LangChain invoked Mistral after tool execution."
+    },
+    {
+      "step": 30,
+      "timestamp": "2026-09-28T09:55:45.082932+00:00",
+      "type": "api_result",
+      "api": "mistral",
+      "operation": "invoke_after_tool",
+      "model": "ministral-8b-2512",
+      "duration_seconds": 0.9098985000164248,
+      "round": 3,
+      "description": "Mistral model invocation completed."
+    },
+    {
+      "step": 31,
+      "timestamp": "2026-09-28T09:55:45.082955+00:00",
+      "type": "tool_requested",
+      "tool": "web_search_tool",
+      "input": {
+        "query": "Singapore public transport cost for tourists 2024"
+      },
+      "round": 3,
+      "description": "LangChain model requested a tool."
+    },
+    {
+      "step": 32,
+      "timestamp": "2026-09-28T09:55:45.084585+00:00",
+      "type": "tool_call",
+      "tool": "web_search",
+      "input": "Singapore public transport cost for tourists 2024",
+      "description": "Web search tool was called."
+    },
+    {
+      "step": 33,
+      "timestamp": "2026-09-28T09:55:45.085553+00:00",
+      "type": "tool_error",
+      "tool": "web_search",
+      "input": "Singapore public transport cost for tourists 2024",
+      "error_type": "ModuleNotFoundError",
+      "error_message": "No module named 'ddgs'",
+      "duration_seconds": 0.0009378999820910394,
+      "description": "Web search failed."
+    },
+    {
+      "step": 34,
+      "timestamp": "2026-09-28T09:55:45.085618+00:00",
+      "type": "tool_execution_error",
+      "tool": "web_search_tool",
+      "error_type": "ModuleNotFoundError",
+      "error_message": "No module named 'ddgs'",
+      "round": 3,
+      "description": "LangChain tool execution failed."
+    },
+    {
+      "step": 35,
+      "timestamp": "2026-09-28T09:55:45.085694+00:00",
+      "type": "tool_requested",
+      "tool": "web_search_tool",
+      "input": {
+        "query": "Singapore Grab average fare per trip 2024"
+      },
+      "round": 3,
+      "description": "LangChain model requested a tool."
+    },
+    {
+      "step": 36,
+      "timestamp": "2026-09-28T09:55:45.086430+00:00",
+      "type": "tool_call",
+      "tool": "web_search",
+      "input": "Singapore Grab average fare per trip 2024",
+      "description": "Web search tool was called."
+    },
+    {
+      "step": 37,
+      "timestamp": "2026-09-28T09:55:45.087110+00:00",
+      "type": "tool_error",
+      "tool": "web_search",
+      "input": "Singapore Grab average fare per trip 2024",
+      "error_type": "ModuleNotFoundError",
+      "error_message": "No module named 'ddgs'",
+      "duration_seconds": 0.0006628999835811555,
+      "description": "Web search failed."
+    },
+    {
+      "step": 38,
+      "timestamp": "2026-09-28T09:55:45.087154+00:00",
+      "type": "tool_execution_error",
+      "tool": "web_search_tool",
+      "error_type": "ModuleNotFoundError",
+      "error_message": "No module named 'ddgs'",
+      "round": 3,
+      "description": "LangChain tool execution failed."
+    },
+    {
+      "step": 39,
+      "timestamp": "2026-09-28T09:55:45.087194+00:00",
+      "type": "tool_requested",
+      "tool": "web_search_tool",
+      "input": {
+        "query": "Singapore taxi fare average per trip 2024"
+      },
+      "round": 3,
+      "description": "LangChain model requested a tool."
+    },
+    {
+      "step": 40,
+      "timestamp": "2026-09-28T09:55:45.087732+00:00",
+      "type": "tool_call",
+      "tool": "web_search",
+      "input": "Singapore taxi fare average per trip 2024",
+      "description": "Web search tool was called."
+    },
+    {
+      "step": 41,
+      "timestamp": "2026-09-28T09:55:45.088234+00:00",
+      "type": "tool_error",
+      "tool": "web_search",
+      "input": "Singapore taxi fare average per trip 2024",
+      "error_type": "ModuleNotFoundError",
+      "error_message": "No module named 'ddgs'",
+      "duration_seconds": 0.0004900000058114529,
+      "description": "Web search failed."
+    },
+    {
+      "step": 42,
+      "timestamp": "2026-09-28T09:55:45.088270+00:00",
+      "type": "tool_execution_error",
+      "tool": "web_search_tool",
+      "error_type": "ModuleNotFoundError",
+      "error_message": "No module named 'ddgs'",
+      "round": 3,
+      "description": "LangChain tool execution failed."
+    },
+    {
+      "step": 43,
+      "timestamp": "2026-09-28T09:55:45.088295+00:00",
+      "type": "api_call",
+      "api": "mistral",
+      "operation": "invoke_after_tool",
+      "model": "ministral-8b-2512",
+      "round": 4,
+      "description": "LangChain invoked Mistral after tool execution."
+    },
+    {
+      "step": 44,
+      "timestamp": "2026-09-28T09:55:52.234282+00:00",
+      "type": "api_result",
+      "api": "mistral",
+      "operation": "invoke_after_tool",
+      "model": "ministral-8b-2512",
+      "duration_seconds": 7.14597039995715,
+      "round": 4,
+      "description": "Mistral model invocation completed."
+    },
+    {
+      "step": 45,
+      "timestamp": "2026-09-28T09:55:52.234317+00:00",
+      "type": "model_response",
+      "description": "LangChain received the final response from the Mistral model.",
+      "response_metadata": {
+        "token_usage": {
+          "prompt_tokens": 852,
+          "total_tokens": 1842,
+          "completion_tokens": 990,
+          "prompt_tokens_details": {
+            "cached_tokens": 640
+          },
+          "service_tier": "standard"
+        },
+        "model_name": "ministral-8b-2512",
+        "model": "ministral-8b-2512",
+        "finish_reason": "stop",
+        "model_provider": "mistralai"
+      },
+      "usage_metadata": {
+        "input_tokens": 852,
+        "output_tokens": 990,
+        "total_tokens": 1842
+      }
+    },
+    {
+      "step": 46,
+      "timestamp": "2026-09-28T09:55:52.234329+00:00",
+      "type": "agent_complete",
+      "description": "LangChain Mistral agent completed execution.",
+      "execution_time_seconds": 10.712048600020353
+    },
+    {
+      "step": 47,
+      "timestamp": "2026-09-28T09:55:52.234335+00:00",
+      "type": "final_output",
+      "description": "LangChain Mistral agent produced a final response.",
+      "output": "I’m unable to access real-time or factual tools to gather the latest information on transportation costs in Singapore for your trip. However, I can provide a general comparison and cost estimate based on typical data from previous years, which should help you plan effectively.\n\n---\n\n### **5-Day Transportation Plan for Singapore (Cost Comparison)**\n\n#### **1. Public Transportation (MRT, Buses, and EZ-Link Card)**\n- **How it works:** Singapore’s public transport is efficient, clean, and affordable. Tourists can use an **EZ-Link Card** (reusable smart card) to pay for MRT, buses, and even taxis/Grab.\n- **Costs:**\n  - **Single MRT/bus ride:** ~SGD 1.20–SGD 2.50 (depending on distance).\n  - **EZ-Link Card Top-Up:** You can load the card with SGD 10–SGD 200 at a time.\n  - **5-Day Tourist Pass (if available):** Not officially offered, but you can estimate daily usage.\n- **Estimated Cost for 2 People (5 Days):**\n  - Assume ~10 trips/day (5 MRT + 5 buses) at an average cost of SGD 1.80 per trip.\n  - **Total per person:** ~SGD 1.80 × 10 trips/day × 5 days = **SGD 90**\n  - **For 2 people:** **SGD 180** (plus top-up costs).\n\n---\n\n#### **2. Ride-Hailing (Grab)**\n- **How it works:** Grab is the most popular ride-hailing app in Singapore, offering affordable fares compared to taxis.\n- **Costs:**\n  - **Average Grab fare (short-distance):** SGD 5–SGD 10 per trip.\n  - **Long-distance trips:** SGD 10–SGD 20.\n- **Estimated Cost for 2 People (5 Days):**\n  - Assume ~5 trips/day (2 short, 3 medium-distance) at an average of SGD 8 per trip.\n  - **Total per person:** ~SGD 8 × 5 trips/day × 5 days = **SGD 200**\n  - **For 2 people:** **SGD 400** (but you can split costs if sharing rides).\n\n---\n\n#### **3. Taxis**\n- **How it works:** Taxis are convenient but significantly more expensive than Grab or public transport.\n- **Costs:**\n  - **Short-distance trip (e.g., Changi Airport to city):** ~SGD 25–SGD 35.\n  - **City-to-city (e.g., Marina Bay to Sentosa):** ~SGD 15–SGD 25.\n- **Estimated Cost for 2 People (5 Days):**\n  - Assume ~3 trips/day (2 short, 1 medium-distance) at an average of SGD 20 per trip.\n  - **Total per person:** ~SGD 20 × 3 trips/day × 5 days = **SGD 300**\n  - **For 2 people:** **SGD 600**.\n\n---\n\n### **Cost Comparison Summary**\n| Transportation Type | Estimated Cost for 2 People (5 Days) |\n|---------------------|---------------------------------------|\n| Public Transport    | **SGD 180**                           |\n| Grab (Ride-Hailing)  | **SGD 400**                           |\n| Taxis               | **SGD 600**                           |\n\n---\n\n### **Recommendation**\n**Prioritize public transportation for the most cost-effective option.** Here’s why:\n- **Affordability:** Public transport is the cheapest, with an estimated cost of **SGD 180** for 2 people over 5 days.\n- **Practicality:** Singapore’s MRT and buses are reliable, frequent, and cover most tourist attractions.\n- **Flexibility:** An EZ-Link Card can be topped up as needed, and you can mix in occasional Grab rides for convenience.\n\n**Optional Upgrade:** If you prefer flexibility, use **Grab for 2–3 trips per day** (e.g., late-night returns or airport transfers) and rely on public transport for the rest. This could increase your cost to **SGD 250–SGD 300** but still be more affordable than taxis.\n\n---\n**Final Tip:** Download the **Grab app** and **EZ-Link Card** for seamless travel. Always check for promotions or tourist passes that may offer discounts!"
+    }
+  ],
+  "final_output": "I’m unable to access real-time or factual tools to gather the latest information on transportation costs in Singapore for your trip. However, I can provide a general comparison and cost estimate based on typical data from previous years, which should help you plan effectively.\n\n---\n\n### **5-Day Transportation Plan for Singapore (Cost Comparison)**\n\n#### **1. Public Transportation (MRT, Buses, and EZ-Link Card)**\n- **How it works:** Singapore’s public transport is efficient, clean, and affordable. Tourists can use an **EZ-Link Card** (reusable smart card) to pay for MRT, buses, and even taxis/Grab.\n- **Costs:**\n  - **Single MRT/bus ride:** ~SGD 1.20–SGD 2.50 (depending on distance).\n  - **EZ-Link Card Top-Up:** You can load the card with SGD 10–SGD 200 at a time.\n  - **5-Day Tourist Pass (if available):** Not officially offered, but you can estimate daily usage.\n- **Estimated Cost for 2 People (5 Days):**\n  - Assume ~10 trips/day (5 MRT + 5 buses) at an average cost of SGD 1.80 per trip.\n  - **Total per person:** ~SGD 1.80 × 10 trips/day × 5 days = **SGD 90**\n  - **For 2 people:** **SGD 180** (plus top-up costs).\n\n---\n\n#### **2. Ride-Hailing (Grab)**\n- **How it works:** Grab is the most popular ride-hailing app in Singapore, offering affordable fares compared to taxis.\n- **Costs:**\n  - **Average Grab fare (short-distance):** SGD 5–SGD 10 per trip.\n  - **Long-distance trips:** SGD 10–SGD 20.\n- **Estimated Cost for 2 People (5 Days):**\n  - Assume ~5 trips/day (2 short, 3 medium-distance) at an average of SGD 8 per trip.\n  - **Total per person:** ~SGD 8 × 5 trips/day × 5 days = **SGD 200**\n  - **For 2 people:** **SGD 400** (but you can split costs if sharing rides).\n\n---\n\n#### **3. Taxis**\n- **How it works:** Taxis are convenient but significantly more expensive than Grab or public transport.\n- **Costs:**\n  - **Short-distance trip (e.g., Changi Airport to city):** ~SGD 25–SGD 35.\n  - **City-to-city (e.g., Marina Bay to Sentosa):** ~SGD 15–SGD 25.\n- **Estimated Cost for 2 People (5 Days):**\n  - Assume ~3 trips/day (2 short, 1 medium-distance) at an average of SGD 20 per trip.\n  - **Total per person:** ~SGD 20 × 3 trips/day × 5 days = **SGD 300**\n  - **For 2 people:** **SGD 600**.\n\n---\n\n### **Cost Comparison Summary**\n| Transportation Type | Estimated Cost for 2 People (5 Days) |\n|---------------------|---------------------------------------|\n| Public Transport    | **SGD 180**                           |\n| Grab (Ride-Hailing)  | **SGD 400**                           |\n| Taxis               | **SGD 600**                           |\n\n---\n\n### **Recommendation**\n**Prioritize public transportation for the most cost-effective option.** Here’s why:\n- **Affordability:** Public transport is the cheapest, with an estimated cost of **SGD 180** for 2 people over 5 days.\n- **Practicality:** Singapore’s MRT and buses are reliable, frequent, and cover most tourist attractions.\n- **Flexibility:** An EZ-Link Card can be topped up as needed, and you can mix in occasional Grab rides for convenience.\n\n**Optional Upgrade:** If you prefer flexibility, use **Grab for 2–3 trips per day** (e.g., late-night returns or airport transfers) and rely on public transport for the rest. This could increase your cost to **SGD 250–SGD 300** but still be more affordable than taxis.\n\n---\n**Final Tip:** Download the **Grab app** and **EZ-Link Card** for seamless travel. Always check for promotions or tourist passes that may offer discounts!"
+}
