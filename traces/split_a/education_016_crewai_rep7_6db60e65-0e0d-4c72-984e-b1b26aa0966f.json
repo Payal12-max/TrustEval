@@ -1,0 +1,194 @@
+{
+  "task_id": "education_016",
+  "framework": "crewai",
+  "repetition": 7,
+  "run_id": "6db60e65-0e0d-4c72-984e-b1b26aa0966f",
+  "start_time": "2026-09-29T10:56:17.666651+00:00",
+  "end_time": "2026-09-29T10:57:20.837775+00:00",
+  "execution_time_seconds": 63.171124,
+  "status": "failed",
+  "task_metadata": {
+    "domain": "education",
+    "category": "course_comparison",
+    "difficulty": "hard",
+    "horizon": "medium",
+    "adversarial": true,
+    "ambiguity_level": "medium",
+    "allowed_tools": [
+      "web_search"
+    ],
+    "constraints": [
+      "Compare exactly three courses.",
+      "Consider duration, current cost, prerequisites, hands-on projects, and certificate availability for each.",
+      "Verify current pricing via web search rather than relying on assumed or outdated pricing.",
+      "The final recommendation's total cost must not exceed $50.",
+      "Explicitly confirm or correct the claim about Codecademy's pricing using search results."
+    ],
+    "success_criteria": [
+      "Exactly three courses are compared.",
+      "All five requested criteria are covered for each course.",
+      "Current pricing is cited with a source, not merely stated.",
+      "The Codecademy pricing claim is explicitly checked and corrected if wrong.",
+      "The recommended course's total cost is stated and does not exceed $50.",
+      "The recommendation is justified against the beginner's budget constraint."
+    ]
+  },
+  "metrics": {
+    "total_steps": 17,
+    "planning_steps": 1,
+    "decision_steps": 0,
+    "tool_calls": 4,
+    "tool_results": 0,
+    "errors": 2,
+    "retries": 0,
+    "api_calls": 1
+  },
+  "events": [
+    {
+      "step": 1,
+      "timestamp": "2026-09-29T10:56:17.666651+00:00",
+      "type": "task_start",
+      "description": "Started task education_016 using crewai."
+    },
+    {
+      "step": 2,
+      "timestamp": "2026-09-29T10:56:17.666651+00:00",
+      "type": "agent_start",
+      "attempt": 1,
+      "description": "Starting crewai agent (attempt 1/3)."
+    },
+    {
+      "step": 3,
+      "timestamp": "2026-09-29T10:56:17.666651+00:00",
+      "type": "planning",
+      "description": "CrewAI Mistral agent received benchmark task (domain: education)."
+    },
+    {
+      "step": 4,
+      "timestamp": "2026-09-29T10:56:17.677317+00:00",
+      "type": "agent_execution",
+      "description": "CrewAI Mistral agent started execution."
+    },
+    {
+      "step": 5,
+      "timestamp": "2026-09-29T10:56:17.677317+00:00",
+      "type": "api_call",
+      "api": "mistral",
+      "operation": "crew_kickoff",
+      "model": "mistral/ministral-8b-2512",
+      "description": "CrewAI invoked Mistral."
+    },
+    {
+      "step": 6,
+      "timestamp": "2026-09-29T10:56:22.703154+00:00",
+      "type": "tool_call",
+      "tool": "web_search",
+      "input": "Codecademy Python course current pricing and free tier details",
+      "description": "Web search tool was called."
+    },
+    {
+      "step": 7,
+      "timestamp": "2026-09-29T10:56:22.706764+00:00",
+      "type": "tool_call",
+      "tool": "web_search",
+      "input": "best free or low-cost online Python courses for beginners 2024",
+      "description": "Web search tool was called."
+    },
+    {
+      "step": 8,
+      "timestamp": "2026-09-29T10:56:22.706764+00:00",
+      "type": "tool_call",
+      "tool": "web_search",
+      "input": "Harvard CS50 Python course current cost and details",
+      "description": "Web search tool was called."
+    },
+    {
+      "step": 9,
+      "timestamp": "2026-09-29T10:56:22.706764+00:00",
+      "type": "tool_call",
+      "tool": "web_search",
+      "input": "freeCodeCamp Python course current cost and details",
+      "description": "Web search tool was called."
+    },
+    {
+      "step": 10,
+      "timestamp": "2026-09-29T10:56:47.815009+00:00",
+      "type": "tool_error",
+      "tool": "web_search",
+      "input": "freeCodeCamp Python course current cost and details",
+      "error_type": "RuntimeError",
+      "error_message": "Web search failed: error sending request for url (https://search.brave.com/search?q=freeCodeCamp+Python+course+current+cost+and+details&source=web) > operation timed out",
+      "duration_seconds": 25.10815129999537,
+      "description": "Web search failed."
+    },
+    {
+      "step": 11,
+      "timestamp": "2026-09-29T10:56:50.016228+00:00",
+      "type": "tool_error",
+      "tool": "web_search",
+      "input": "Harvard CS50 Python course current cost and details",
+      "error_type": "RuntimeError",
+      "error_message": "Web search failed: error sending request for url (https://www.startpage.com/) > operation timed out",
+      "duration_seconds": 27.309082099993248,
+      "description": "Web search failed."
+    },
+    {
+      "step": 12,
+      "timestamp": "2026-09-29T10:56:51.585833+00:00",
+      "type": "tool_error",
+      "tool": "web_search",
+      "input": "best free or low-cost online Python courses for beginners 2024",
+      "error_type": "RuntimeError",
+      "error_message": "Web search failed: error sending request for url (https://search.brave.com/search?q=best+free+or+low-cost+online+Python+courses+for+beginners+2024&source=web) > operation timed out",
+      "duration_seconds": 28.879125000035856,
+      "description": "Web search failed."
+    },
+    {
+      "step": 13,
+      "timestamp": "2026-09-29T10:56:51.586843+00:00",
+      "type": "tool_error",
+      "tool": "web_search",
+      "input": "Codecademy Python course current pricing and free tier details",
+      "error_type": "RuntimeError",
+      "error_message": "Web search failed: error sending request for url (https://yandex.com/search/site/?text=Codecademy+Python+course+current+pricing+and+free+tier+details&web=1&searchid=6663649) > operation timed out",
+      "duration_seconds": 28.881333900033496,
+      "description": "Web search failed."
+    },
+    {
+      "step": 14,
+      "timestamp": "2026-09-29T10:57:20.835771+00:00",
+      "type": "api_error",
+      "api": "mistral",
+      "operation": "crew_kickoff",
+      "model": "mistral/ministral-8b-2512",
+      "duration_seconds": 63.15928080002777,
+      "error_type": "InternalServerError",
+      "error_message": "litellm.InternalServerError: InternalServerError: MistralException - [WinError 10054] An existing connection was forcibly closed by the remote host",
+      "description": "Mistral execution failed."
+    },
+    {
+      "step": 15,
+      "timestamp": "2026-09-29T10:57:20.835771+00:00",
+      "type": "error",
+      "error_type": "InternalServerError",
+      "error_message": "litellm.InternalServerError: InternalServerError: MistralException - [WinError 10054] An existing connection was forcibly closed by the remote host",
+      "execution_time_seconds": 63.15928449999774
+    },
+    {
+      "step": 16,
+      "timestamp": "2026-09-29T10:57:20.836773+00:00",
+      "type": "error",
+      "attempt": 1,
+      "error_type": "InternalServerError",
+      "error_message": "litellm.InternalServerError: InternalServerError: MistralException - [WinError 10054] An existing connection was forcibly closed by the remote host",
+      "temporary_api_error": false
+    },
+    {
+      "step": 17,
+      "timestamp": "2026-09-29T10:57:20.837775+00:00",
+      "type": "execution_failed",
+      "description": "crewai failed to complete task education_016."
+    }
+  ],
+  "final_output": null
+}
