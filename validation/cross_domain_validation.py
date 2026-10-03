@@ -1,34 +1,89 @@
 """
-Checks whether TrustEval's correlation with human judgment holds consistently
-across domains.
+Cross-domain validation.
+
+Measures whether framework rankings remain consistent across
+the benchmark's different domains.
 """
 
 import pandas as pd
-from scipy.stats import pearsonr
+from scipy.stats import kendalltau
 
 
-def cross_domain_validation(trust_scores: pd.DataFrame, human_ratings: pd.DataFrame) -> pd.DataFrame:
-    human_avg = human_ratings.groupby(["task_id", "agent_id"])["overall_trust"].mean().reset_index()
-    human_avg["overall_trust_scaled"] = (human_avg["overall_trust"] - 1) / 4.0
+def cross_domain_validation(
+    trust_scores,
+):
 
-    merged = trust_scores.merge(human_avg[["task_id", "agent_id", "overall_trust_scaled"]], on=["task_id", "agent_id"])
+    overall = (
+        trust_scores
+        .groupby("agent_id")["composite_score"]
+        .mean()
+    )
+
+    overall_ranking = overall.rank(
+        ascending=False
+    )
 
     results = []
-    for domain, group in merged.groupby("domain"):
-        if len(group) < 3:
-            results.append({"domain": domain, "pearson_r": None, "n": len(group),
-                             "note": "too few rated traces in this domain"})
-            continue
-        r, p = pearsonr(group["composite_score"], group["overall_trust_scaled"])
-        results.append({"domain": domain, "pearson_r": round(r, 3), "pearson_p": round(p, 4),
-                         "n": len(group), "note": ""})
+
+    for domain, group in trust_scores.groupby(
+        "domain"
+    ):
+
+        domain_scores = (
+            group
+            .groupby("agent_id")["composite_score"]
+            .mean()
+        )
+
+        ranking = domain_scores.rank(
+            ascending=False
+        )
+
+        common_agents = (
+            overall_ranking.index
+            .intersection(ranking.index)
+        )
+
+        if len(common_agents) >= 2:
+
+            tau, _ = kendalltau(
+                overall_ranking.loc[
+                    common_agents
+                ],
+                ranking.loc[
+                    common_agents
+                ],
+            )
+
+        else:
+
+            tau = None
+
+        results.append({
+            "domain": domain,
+            "n_tasks": group[
+                "task_id"
+            ].nunique(),
+            "n_runs": len(group),
+            "kendall_tau_vs_overall": (
+                round(float(tau), 3)
+                if tau is not None
+                else None
+            ),
+        })
 
     return pd.DataFrame(results)
 
 
 if __name__ == "__main__":
+
     from data_loader import load_trust_scores
-    trust = load_trust_scores("../results/trust_scores.json")
-    human = pd.read_csv("../data/human_ratings.csv")
-    report = cross_domain_validation(trust, human)
-    print(report.to_string(index=False))
+
+    trust = load_trust_scores(
+        "../results/trust_scores.json"
+    )
+
+    print(
+        cross_domain_validation(trust)
+        .to_string(index=False)
+    )

@@ -1,42 +1,174 @@
 """
-Ablation study: remove one trust dimension at a time, recompute the composite
-score, and measure how much it hurts correlation with human judgment.
+Algorithmic ablation study.
+
+Removes one trust dimension at a time, renormalizes the remaining
+domain-specific weights, and measures:
+
+1. Change in framework scores.
+2. Change in framework ranking.
 """
 
 import numpy as np
 import pandas as pd
-from scipy.stats import pearsonr
+from scipy.stats import kendalltau
 
-DIMENSIONS = ["safety", "robustness", "reliability", "goal_adherence"]
+from scoring.composite_scorer import DOMAIN_WEIGHTS
+
+DIMENSIONS = [
+    "safety",
+    "robustness",
+    "reliability",
+    "goal_adherence",
+]
 
 
-def ablation_study(trust_scores: pd.DataFrame, human_ratings: pd.DataFrame,
-                    dimensions: list = DIMENSIONS) -> pd.DataFrame:
-    human_avg = human_ratings.groupby(["task_id", "agent_id"])[dimensions].mean().reset_index()
-    human_avg["human_composite"] = human_avg[dimensions].mean(axis=1) / 5.0
-    merged = trust_scores.merge(human_avg[["task_id", "agent_id", "human_composite"]], on=["task_id", "agent_id"])
+def ablation_study(
+    trust_scores,
+    dimensions=DIMENSIONS,
+):
 
-    full_composite = merged[dimensions].mean(axis=1)
-    full_r, _ = pearsonr(full_composite, merged["human_composite"])
+    results = []
 
-    results = [{"removed_dimension": "none (full model)", "pearson_r": round(full_r, 3), "drop_from_full": 0.0}]
+    # --------------------------------------------------------
+    # Full model
+    # --------------------------------------------------------
 
-    for dim in dimensions:
-        remaining = [d for d in dimensions if d != dim]
-        ablated_composite = merged[remaining].mean(axis=1)
-        r, _ = pearsonr(ablated_composite, merged["human_composite"])
+    full = trust_scores.copy()
+
+    full_values = []
+
+    for _, row in full.iterrows():
+
+        weights = DOMAIN_WEIGHTS.get(
+            row["domain"],
+            DOMAIN_WEIGHTS["default"],
+        )
+
+        value = sum(
+            row[d] * weights[d]
+            for d in dimensions
+        )
+
+        full_values.append(value)
+
+    full["ablation_score"] = full_values
+
+    full_framework = (
+        full.groupby("agent_id")["ablation_score"]
+        .mean()
+    )
+
+    full_ranking = full_framework.rank(
+        ascending=False
+    )
+
+    full_mean = full["ablation_score"].mean()
+
+    results.append({
+        "removed_dimension": "none",
+        "mean_score": round(
+            full_mean,
+            3,
+        ),
+        "mean_absolute_change": 0.0,
+        "kendall_tau_vs_full": 1.0,
+    })
+
+    # --------------------------------------------------------
+    # Remove one dimension
+    # --------------------------------------------------------
+
+    for removed in dimensions:
+
+        remaining = [
+            d for d in dimensions
+            if d != removed
+        ]
+
+        rows = []
+
+        for _, row in trust_scores.iterrows():
+
+            original_weights = DOMAIN_WEIGHTS.get(
+                row["domain"],
+                DOMAIN_WEIGHTS["default"],
+            )
+
+            total = sum(
+                original_weights[d]
+                for d in remaining
+            )
+
+            normalized = {
+                d: original_weights[d] / total
+                for d in remaining
+            }
+
+            score = sum(
+                row[d] * normalized[d]
+                for d in remaining
+            )
+
+            rows.append(score)
+
+        ablated = trust_scores.copy()
+
+        ablated["ablation_score"] = rows
+
+        framework_scores = (
+            ablated
+            .groupby("agent_id")["ablation_score"]
+            .mean()
+        )
+
+        ranking = framework_scores.rank(
+            ascending=False
+        )
+
+        tau, _ = kendalltau(
+            full_ranking,
+            ranking.reindex(
+                full_ranking.index
+            ),
+        )
+
+        change = np.mean(
+            np.abs(
+                ablated["ablation_score"]
+                - full["ablation_score"]
+            )
+        )
+
         results.append({
-            "removed_dimension": dim,
-            "pearson_r": round(r, 3),
-            "drop_from_full": round(full_r - r, 3)
+            "removed_dimension": removed,
+            "mean_score": round(
+                float(
+                    ablated["ablation_score"].mean()
+                ),
+                3,
+            ),
+            "mean_absolute_change": round(
+                float(change),
+                3,
+            ),
+            "kendall_tau_vs_full": round(
+                float(tau),
+                3,
+            ),
         })
 
-    return pd.DataFrame(results).sort_values("drop_from_full", ascending=False)
+    return pd.DataFrame(results)
 
 
 if __name__ == "__main__":
+
     from data_loader import load_trust_scores
-    trust = load_trust_scores("../results/trust_scores.json")
-    human = pd.read_csv("../data/human_ratings.csv")
-    report = ablation_study(trust, human)
-    print(report.to_string(index=False))
+
+    trust = load_trust_scores(
+        "../results/trust_scores.json"
+    )
+
+    print(
+        ablation_study(trust)
+        .to_string(index=False)
+    )

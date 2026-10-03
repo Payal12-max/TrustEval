@@ -1,121 +1,716 @@
-import pandas as pd
-import numpy as np
-import os
+"""
+TrustEval Member 3
+Complete Statistical Validation Pipeline
+
+IMPORTANT:
+This version does NOT use human ratings.
+
+It automatically finds:
+
+    TrustEval-main/results/trust_scores.json
+
+regardless of the folder from which the command is executed.
+"""
+
+from pathlib import Path
 import sys
 
-sys.path.insert(0, "../validation")
-from data_loader import load_trust_scores, DIMENSIONS
-from agreement import pairwise_agreement_report
-from correlation import correlate_with_humans
-from weight_optimization import optimize_weights, MEMBER2_WEIGHTS
-from confidence_intervals import per_agent_confidence_intervals
-from ranking_stability import ranking_stability, get_ranking
-from sensitivity_analysis import sensitivity_analysis
-from ablation import ablation_study
-from overall_trust_validation import validate_overall_trust
-from baseline_comparison import compare_baseline_vs_trusteval
-from cross_domain_validation import cross_domain_validation
-from repeatability import repeatability_analysis, repeatability_summary
-from calibration import calibration_analysis
-from robustness_testing import leave_one_rater_out, leave_one_trace_out
-from visualizations import plot_correlation_scatter, plot_framework_comparison, plot_dimension_correlation, plot_ablation
+import pandas as pd
 
-os.makedirs("../outputs", exist_ok=True)
-os.makedirs("../outputs/figures", exist_ok=True)
 
-print("Loading real trust scores from results/trust_scores.json...")
-trust = load_trust_scores("../results/trust_scores.json")
-print(f"Loaded {len(trust)} runs across {trust['agent_id'].nunique()} frameworks "
-      f"and {trust['domain'].nunique()} domains")
+# ============================================================
+# PROJECT PATHS
+# ============================================================
 
-print("Loading human ratings from data/human_ratings.csv...")
-human = pd.read_csv("../data/human_ratings.csv")
+# run_all.py is located at:
+#
+# TrustEval-main/
+#     validation_scripts/
+#         run_all.py
+#
+# Therefore parents[1] = TrustEval-main
 
-print("\n1. Inter-rater agreement (ICC)")
-agreement = pairwise_agreement_report(human)
-print(agreement.to_string(index=False))
-agreement.to_csv("../outputs/agreement_report.csv", index=False)
+PROJECT_ROOT = Path(
+    __file__
+).resolve().parents[1]
 
-print("\n2. Correlation: TrustEval vs human ratings")
-correlation = correlate_with_humans(trust, human)
-print(correlation.to_string(index=False))
-correlation.to_csv("../outputs/correlation_report.csv", index=False)
+VALIDATION_DIR = (
+    PROJECT_ROOT / "validation"
+)
 
-print("\n3. Weight optimization")
-weights, mse = optimize_weights(trust, human)
-print(f"Optimized weights: {weights}  (MSE={mse:.4f})")
-print(f"Member 2's fixed weights: {MEMBER2_WEIGHTS}")
-pd.DataFrame([weights]).to_csv("../outputs/optimized_weights.csv", index=False)
+RESULTS_DIR = (
+    PROJECT_ROOT / "results"
+)
 
-print("\n4. Bootstrap confidence intervals per framework")
-ci_report = per_agent_confidence_intervals(trust)
-print(ci_report.to_string(index=False))
-ci_report.to_csv("../outputs/confidence_intervals.csv", index=False)
+OUTPUT_DIR = (
+    PROJECT_ROOT / "outputs"
+)
 
-print("\n5. Ranking stability under resampling")
-ranking = get_ranking(trust)
-stability = ranking_stability(trust)
-print(f"Ranking: {dict(ranking.sort_values())}")
-print(f"Stability: {stability}")
-pd.DataFrame([stability]).to_csv("../outputs/ranking_stability.csv", index=False)
+FIGURES_DIR = (
+    OUTPUT_DIR / "figures"
+)
 
-print("\n6. Sensitivity analysis (weight perturbation)")
-sensitivity_rows = []
-for pert in [0.1, 0.2, 0.3]:
-    sensitivity_rows.append(sensitivity_analysis(trust, perturbation=pert))
-sensitivity = pd.concat(sensitivity_rows, ignore_index=True)
-print(sensitivity.to_string(index=False))
-sensitivity.to_csv("../outputs/sensitivity_analysis.csv", index=False)
 
-print("\n7. Ablation study")
-ablation = ablation_study(trust, human)
-print(ablation.to_string(index=False))
-ablation.to_csv("../outputs/ablation_study.csv", index=False)
+# ============================================================
+# PYTHON IMPORT PATH
+# ============================================================
 
-print("\n8. Overall trustworthiness validation")
-overall = validate_overall_trust(trust, human)
-print(overall.to_string(index=False))
-overall.to_csv("../outputs/overall_trust_validation.csv", index=False)
+sys.path.insert(
+    0,
+    str(PROJECT_ROOT)
+)
 
-print("\n9. Baseline comparison (TrustEval vs naive success-only)")
-baseline = compare_baseline_vs_trusteval(trust, human)
-print(baseline.to_string(index=False))
-baseline.to_csv("../outputs/baseline_comparison.csv", index=False)
+sys.path.insert(
+    0,
+    str(VALIDATION_DIR)
+)
 
-print("\n10. Cross-domain validation")
-cross_domain = cross_domain_validation(trust, human)
-print(cross_domain.to_string(index=False))
-cross_domain.to_csv("../outputs/cross_domain_validation.csv", index=False)
 
-print("\n11. Repeatability experiments")
-repeatability = repeatability_analysis(trust)
-print(repeatability.to_string(index=False))
-repeatability.to_csv("../outputs/repeatability.csv", index=False)
-print("Summary:", repeatability_summary(repeatability))
+# ============================================================
+# IMPORT VALIDATION MODULES
+# ============================================================
 
-print("\n12. Statistical calibration")
-calibration = calibration_analysis(trust, human)
-for k, v in calibration.items():
-    print(f"  {k}: {v}")
-pd.DataFrame([calibration]).to_csv("../outputs/calibration.csv", index=False)
+from data_loader import load_trust_scores
 
-print("\n13. Robustness testing (leave-one-rater-out)")
-loro = leave_one_rater_out(trust, human)
-print(loro.to_string(index=False))
-loro.to_csv("../outputs/robustness_leave_one_rater_out.csv", index=False)
+from confidence_intervals import (
+    per_agent_confidence_intervals
+)
 
-print("\n14. Robustness testing (leave-one-trace-out)")
-loto = leave_one_trace_out(trust, human)
-print(loto)
-pd.DataFrame([loto]).to_csv("../outputs/robustness_leave_one_trace_out.csv", index=False)
+from ranking_stability import (
+    get_ranking,
+    ranking_stability
+)
 
-print("\n15. Generating visualizations")
-p1 = plot_correlation_scatter(trust, human)
-p2 = plot_framework_comparison(ci_report)
-p3 = plot_dimension_correlation(correlation)
-p4 = plot_ablation(ablation)
-print("Saved figures:")
-for p in [p1, p2, p3, p4]:
-    print(" -", p)
+from sensitivity_analysis import (
+    sensitivity_analysis
+)
 
-print("\nAll done. Results saved in outputs/, figures saved in outputs/figures/")
+from repeatability import (
+    repeatability_analysis,
+    repeatability_summary
+)
+
+from ablation import (
+    ablation_study
+)
+
+from baseline_comparison import (
+    compare_baseline_vs_trusteval
+)
+
+from cross_domain_validation import (
+    cross_domain_validation
+)
+
+from robustness_testing import (
+    leave_one_task_out,
+    robustness_summary
+)
+
+from calibration import (
+    calibration_analysis
+)
+
+
+# ============================================================
+# CREATE OUTPUT DIRECTORIES
+# ============================================================
+
+OUTPUT_DIR.mkdir(
+    parents=True,
+    exist_ok=True
+)
+
+FIGURES_DIR.mkdir(
+    parents=True,
+    exist_ok=True
+)
+
+
+# ============================================================
+# TRUST SCORE FILE
+# ============================================================
+
+TRUST_SCORES_PATH = (
+    RESULTS_DIR
+    / "trust_scores.json"
+)
+
+
+# ============================================================
+# HELPER FUNCTION
+# ============================================================
+
+def save_dataframe(
+    dataframe,
+    filename
+):
+
+    output_path = (
+        OUTPUT_DIR
+        / filename
+    )
+
+    dataframe.to_csv(
+        output_path,
+        index=False
+    )
+
+    print(
+        f"Saved: {output_path}"
+    )
+
+
+# ============================================================
+# CHECK PROJECT STRUCTURE
+# ============================================================
+
+def check_project_structure():
+
+    print("\nChecking project structure...")
+
+    print(
+        f"Project root:\n"
+        f"  {PROJECT_ROOT}"
+    )
+
+    print(
+        f"Results directory:\n"
+        f"  {RESULTS_DIR}"
+    )
+
+    print(
+        f"Trust scores file:\n"
+        f"  {TRUST_SCORES_PATH}"
+    )
+
+    print(
+        f"Output directory:\n"
+        f"  {OUTPUT_DIR}"
+    )
+
+    # --------------------------------------------------------
+    # Check results folder
+    # --------------------------------------------------------
+
+    if not RESULTS_DIR.exists():
+
+        raise FileNotFoundError(
+            "\nERROR: The results folder does not exist.\n\n"
+            f"Expected:\n"
+            f"  {RESULTS_DIR}\n\n"
+            "Make sure your project has a 'results' folder."
+        )
+
+    # --------------------------------------------------------
+    # Check trust_scores.json
+    # --------------------------------------------------------
+
+    if not TRUST_SCORES_PATH.exists():
+
+        print("\nFiles currently inside results:")
+
+        for file in RESULTS_DIR.iterdir():
+
+            print(
+                f"  - {file.name}"
+            )
+
+        raise FileNotFoundError(
+            "\nERROR: Could not find trust_scores.json.\n\n"
+            "The program expected:\n"
+            f"  {TRUST_SCORES_PATH}\n\n"
+            "If the file has a different name, "
+            "rename it to trust_scores.json.\n"
+            "If it is somewhere else, move/copy it "
+            "into the results folder."
+        )
+
+    print(
+        "\ntrust_scores.json FOUND."
+    )
+
+
+# ============================================================
+# MAIN
+# ============================================================
+
+def main():
+
+    print("\n")
+    print("=" * 75)
+    print(
+        "TrustEval — Member 3 Statistical Validation"
+    )
+    print("=" * 75)
+
+    # --------------------------------------------------------
+    # CHECK PATHS
+    # --------------------------------------------------------
+
+    check_project_structure()
+
+    # --------------------------------------------------------
+    # LOAD DATA
+    # --------------------------------------------------------
+
+    print("\nLoading Member 2 trust scores...")
+
+    trust = load_trust_scores(
+        TRUST_SCORES_PATH
+    )
+
+    print(
+        f"\nLoaded {len(trust)} execution runs."
+    )
+
+    print(
+        f"Tasks: "
+        f"{trust['task_id'].nunique()}"
+    )
+
+    print(
+        f"Frameworks: "
+        f"{trust['framework'].nunique()}"
+    )
+
+    print(
+        f"Domains: "
+        f"{trust['domain'].nunique()}"
+    )
+
+    print(
+        f"Repetitions: "
+        f"{trust['repetition'].nunique()}"
+    )
+
+    print(
+        "\nFrameworks:"
+    )
+
+    print(
+        trust["framework"]
+        .dropna()
+        .unique()
+    )
+
+    # ========================================================
+    # 1. CONFIDENCE INTERVALS
+    # ========================================================
+
+    print("\n")
+    print("-" * 75)
+    print(
+        "[1/9] Task-level bootstrap confidence intervals"
+    )
+    print("-" * 75)
+
+    ci = (
+        per_agent_confidence_intervals(
+            trust
+        )
+    )
+
+    print(
+        ci.to_string(
+            index=False
+        )
+    )
+
+    save_dataframe(
+        ci,
+        "confidence_intervals.csv"
+    )
+
+    # ========================================================
+    # 2. RANKING STABILITY
+    # ========================================================
+
+    print("\n")
+    print("-" * 75)
+    print(
+        "[2/9] Framework ranking stability"
+    )
+    print("-" * 75)
+
+    ranking = (
+        get_ranking(
+            trust
+        )
+    )
+
+    stability = (
+        ranking_stability(
+            trust
+        )
+    )
+
+    print(
+        "\nFramework ranking:"
+    )
+
+    print(
+        ranking
+        .sort_values()
+        .to_string()
+    )
+
+    print(
+        "\nRanking stability:"
+    )
+
+    print(
+        stability
+    )
+
+    save_dataframe(
+        pd.DataFrame(
+            [stability]
+        ),
+        "ranking_stability.csv"
+    )
+
+    # ========================================================
+    # 3. SENSITIVITY ANALYSIS
+    # ========================================================
+
+    print("\n")
+    print("-" * 75)
+    print(
+        "[3/9] Domain-aware weight sensitivity"
+    )
+    print("-" * 75)
+
+    sensitivity_results = []
+
+    for perturbation in (
+        0.10,
+        0.20,
+        0.30
+    ):
+
+        print(
+            f"\nTesting ±{perturbation * 100:.0f}% "
+            "weight perturbation..."
+        )
+
+        result = sensitivity_analysis(
+            trust,
+            perturbation=perturbation,
+            n_trials=500,
+            seed=42
+        )
+
+        sensitivity_results.append(
+            result
+        )
+
+    if sensitivity_results:
+
+        sensitivity = pd.concat(
+            sensitivity_results,
+            ignore_index=True
+        )
+
+    else:
+
+        sensitivity = pd.DataFrame()
+
+    print(
+        sensitivity.to_string(
+            index=False
+        )
+    )
+
+    save_dataframe(
+        sensitivity,
+        "sensitivity_analysis.csv"
+    )
+
+    # ========================================================
+    # 4. ABLATION
+    # ========================================================
+
+    print("\n")
+    print("-" * 75)
+    print(
+        "[4/9] Trust-dimension ablation"
+    )
+    print("-" * 75)
+
+    ablation = (
+        ablation_study(
+            trust
+        )
+    )
+
+    print(
+        ablation.to_string(
+            index=False
+        )
+    )
+
+    save_dataframe(
+        ablation,
+        "ablation_study.csv"
+    )
+
+    # ========================================================
+    # 5. REPEATABILITY
+    # ========================================================
+
+    print("\n")
+    print("-" * 75)
+    print(
+        "[5/9] Repeatability across repeated executions"
+    )
+    print("-" * 75)
+
+    repeatability = (
+        repeatability_analysis(
+            trust
+        )
+    )
+
+    print(
+        repeatability
+        .head(20)
+        .to_string(
+            index=False
+        )
+    )
+
+    repeatability_result = (
+        repeatability_summary(
+            repeatability
+        )
+    )
+
+    print(
+        "\nRepeatability summary:"
+    )
+
+    print(
+        repeatability_result
+    )
+
+    save_dataframe(
+        repeatability,
+        "repeatability.csv"
+    )
+
+    # ========================================================
+    # 6. CROSS DOMAIN
+    # ========================================================
+
+    print("\n")
+    print("-" * 75)
+    print(
+        "[6/9] Cross-domain ranking consistency"
+    )
+    print("-" * 75)
+
+    cross_domain = (
+        cross_domain_validation(
+            trust
+        )
+    )
+
+    print(
+        cross_domain.to_string(
+            index=False
+        )
+    )
+
+    save_dataframe(
+        cross_domain,
+        "cross_domain_validation.csv"
+    )
+
+    # ========================================================
+    # 7. LEAVE-ONE-TASK-OUT
+    # ========================================================
+
+    print("\n")
+    print("-" * 75)
+    print(
+        "[7/9] Leave-one-task-out robustness"
+    )
+    print("-" * 75)
+
+    loto = (
+        leave_one_task_out(
+            trust
+        )
+    )
+
+    print(
+        loto
+        .head(20)
+        .to_string(
+            index=False
+        )
+    )
+
+    loto_summary = (
+        robustness_summary(
+            loto
+        )
+    )
+
+    print(
+        "\nRobustness summary:"
+    )
+
+    print(
+        loto_summary
+    )
+
+    save_dataframe(
+        loto,
+        "robustness_leave_one_task_out.csv"
+    )
+
+    # ========================================================
+    # 8. BASELINE COMPARISON
+    # ========================================================
+
+    print("\n")
+    print("-" * 75)
+    print(
+        "[8/9] Baseline comparison"
+    )
+    print("-" * 75)
+
+    baseline = (
+        compare_baseline_vs_trusteval(
+            trust
+        )
+    )
+
+    print(
+        baseline.to_string(
+            index=False
+        )
+    )
+
+    save_dataframe(
+        baseline,
+        "baseline_comparison.csv"
+    )
+
+    # ========================================================
+    # 9. CALIBRATION
+    # ========================================================
+
+    print("\n")
+    print("-" * 75)
+    print(
+        "[9/9] Calibration / outcome consistency"
+    )
+    print("-" * 75)
+
+    calibration = (
+        calibration_analysis(
+            trust
+        )
+    )
+
+    print(
+        calibration
+    )
+
+    save_dataframe(
+        pd.DataFrame(
+            [calibration]
+        ),
+        "calibration.csv"
+    )
+
+    # ========================================================
+    # OVERALL SUMMARY
+    # ========================================================
+
+    summary = pd.DataFrame(
+        [{
+            "n_runs":
+                len(trust),
+
+            "n_tasks":
+                trust["task_id"]
+                .nunique(),
+
+            "n_frameworks":
+                trust["framework"]
+                .nunique(),
+
+            "n_domains":
+                trust["domain"]
+                .nunique(),
+
+            "n_repetitions_max":
+                trust
+                .groupby(
+                    [
+                        "task_id",
+                        "framework"
+                    ]
+                )["repetition"]
+                .count()
+                .max(),
+
+            "mean_composite":
+                trust[
+                    "composite_score"
+                ].mean(),
+
+            "std_composite":
+                trust[
+                    "composite_score"
+                ].std(),
+        }]
+    )
+
+    save_dataframe(
+        summary,
+        "validation_summary.csv"
+    )
+
+    # ========================================================
+    # COMPLETE
+    # ========================================================
+
+    print("\n")
+    print("=" * 75)
+    print(
+        "VALIDATION COMPLETE"
+    )
+    print("=" * 75)
+
+    print(
+        "\nAll validation outputs were saved to:"
+    )
+
+    print(
+        f"  {OUTPUT_DIR}"
+    )
+
+    print(
+        "\nHuman ratings were NOT used."
+    )
+
+    print(
+        "\nThe Member 3 pipeline validated "
+        f"{len(trust)} execution runs."
+    )
+
+    print("=" * 75)
+
+
+# ============================================================
+# RUN
+# ============================================================
+
+if __name__ == "__main__":
+
+    main()
